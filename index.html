@@ -11,12 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-    <!-- Three.js (global) -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.162.0/examples/js/controls/OrbitControls.js"></script>
 
     <link rel="stylesheet" href="stylesheet.css"/>
-    <script src="script.js"></script>
-</head>
+    </head>
 <body>
 <header class="header">
     <nav class="nav container">
@@ -41,12 +40,10 @@
 </header>
 
 <main>
-    <!-- HERO -->
     <section id="sobre" class="section hero">
         <div class="container hero-grid">
             <div class="hero-copy">
                 <h1 class="hero-title white"><span id="typeWelcome" class="type"></span></h1>
-
                 <p class="hero-text">
                     <strong>Me chamo Heron de Souza</strong>. Este portfólio apresenta quem sou, minha formação, experiências
                     na faculdade e no trabalho — e, principalmente, o que eu sei <strong>entregar</strong>: produtos com
@@ -62,10 +59,8 @@
                     em <em>automação industrial</em> e <em>Digital Manufacturing</em> na Comau, priorizando clareza de código,
                     testes, telemetria e entrega contínua.
                 </p>
-
                 <a href="#contato" class="btn primary" id="cta">Falar comigo</a>
             </div>
-
             <div class="hero-art clean">
                 <div class="blob b1" style="left:-40px; top:-30px"></div>
                 <div class="blob b2"></div>
@@ -77,23 +72,22 @@
         </div>
     </section>
 
-    <!-- Formação -->
     <section id="formacao" class="section surface">
         <div class="container">
             <h2 class="section-title typing" data-text="Formação"><span></span></h2>
             <div class="formacao-grid">
                 <a class="formacao-item hover-up reveal" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer">
-                    <img src="Fei_Logo.png" alt="FEI"/>
+                    <img src="Fei_Logo.png" alt="Logo da FEI"/>
                     <h3>Ciência da Computação</h3>
                     <p>Centro Universitário FEI • 2023 → 2027</p>
                 </a>
                 <a class="formacao-item hover-up reveal" href="https://cert.efset.org/en/4CmKYu" target="_blank" rel="noreferrer">
-                    <img src="Ef_Set_Logo.png" alt="EF SET"/>
+                    <img src="Ef_Set_Logo.png" alt="Logo da EF SET"/>
                     <h3>Inglês — Certificação EF SET</h3>
                     <p>Conversação e escrita com fluência</p>
                 </a>
                 <div class="formacao-item hover-up reveal">
-                    <img src="Fund_Bradesco_Logo.png" alt="Fundação Bradesco"/>
+                    <img src="Fund_Bradesco_Logo.png" alt="Logo da Fundação Bradesco"/>
                     <h3>Cursos Livres</h3>
                     <p>TI, Lógica e Gestão • Escola Virtual</p>
                 </div>
@@ -101,12 +95,11 @@
         </div>
     </section>
 
-    <!-- Experiência -->
     <section id="experiencia" class="section">
         <div class="container">
             <h2 class="section-title typing" data-text="Experiência"><span></span></h2>
             <div class="card experiencia-card reveal">
-                <img src="Comau_Logo.png" alt="Comau" class="empresa-logo"/>
+                <img src="Comau_Logo.png" alt="Logo da Comau" class="empresa-logo"/>
                 <h3>Estagiário de Automação Industrial — Comau (Digital Manufacturing Brasil)</h3>
                 <span class="date">abr 2025 – presente</span>
                 <p>Crio e evoluo soluções internas para engenharia e operação, com foco em qualidade e velocidade de entrega:</p>
@@ -123,26 +116,24 @@
         </div>
     </section>
 
-    <!-- Skills -->
     <section id="skills" class="section surface">
         <div class="container">
             <h2 class="section-title typing" data-text="Skills & Ferramentas"><span></span></h2>
             <div class="skills-grid">
-                <div class="skill-item reveal"><img src="HTML_Logo.png" alt=""><span>HTML5</span></div>
-                <div class="skill-item reveal"><img src="CSS_Logo.png" alt=""><span>CSS3</span></div>
-                <div class="skill-item reveal"><img src="JS_Logo.png" alt=""><span>JavaScript</span></div>
-                <div class="skill-item reveal"><img src="React_Logo.png" alt=""><span>React</span></div>
-                <div class="skill-item reveal"><img src="Python_Logo.png" alt=""><span>Python</span></div>
-                <div class="skill-item reveal"><img src="Java_Logo.png" alt=""><span>Java</span></div>
-                <div class="skill-item reveal"><img src="C_Logo.png" alt=""><span>C</span></div>
-                <div class="skill-item reveal"><img src="Csharp_Logo.png" alt=""><span>C#</span></div>
-                <div class="skill-item reveal"><img src="Wpf_Logo (2).png" alt=""><span>WPF</span></div>
-                <div class="skill-item reveal"><img src="Process_Logo.png" alt=""><span>Process Simulate</span></div>
+                <div class="skill-item reveal"><img src="HTML_Logo.png" alt="Logo HTML5"><span>HTML5</span></div>
+                <div class="skill-item reveal"><img src="CSS_Logo.png" alt="Logo CSS3"><span>CSS3</span></div>
+                <div class="skill-item reveal"><img src="JS_Logo.png" alt="Logo JavaScript"><span>JavaScript</span></div>
+                <div class="skill-item reveal"><img src="React_Logo.png" alt="Logo React"><span>React</span></div>
+                <div class="skill-item reveal"><img src="Python_Logo.png" alt="Logo Python"><span>Python</span></div>
+                <div class="skill-item reveal"><img src="Java_Logo.png" alt="Logo Java"><span>Java</span></div>
+                <div class="skill-item reveal"><img src="C_Logo.png" alt="Logo C"><span>C</span></div>
+                <div class="skill-item reveal"><img src="Csharp_Logo.png" alt="Logo C#"><span>C#</span></div>
+                <div class="skill-item reveal"><img src="Wpf_Logo (2).png" alt="Logo WPF"><span>WPF</span></div>
+                <div class="skill-item reveal"><img src="Process_Logo.png" alt="Logo Process Simulate"><span>Process Simulate</span></div>
             </div>
         </div>
     </section>
 
-    <!-- Projetos -->
     <section id="projetos" class="section">
         <div class="container">
             <h2 class="section-title typing" data-text="Projetos em Destaque"><span></span></h2>
@@ -190,18 +181,16 @@
         </div>
     </section>
 
-    <!-- Galáxia 3D -->
     <section id="galaxia" class="section surface">
         <div class="container">
             <h2 class="section-title typing" data-text="Galáxia Interativa (Three.js)"><span></span></h2>
             <p style="color:var(--muted);margin-bottom:1rem">
-                Toque e arraste para girar. <strong>Pinça</strong> com dois dedos para dar zoom.
+                Clique e arraste para girar. Use a roda do mouse ou o gesto de pinça para dar zoom.
             </p>
             <div id="galaxy3d" class="scene3d" aria-label="Galáxia 3D interativa"></div>
         </div>
     </section>
 
-    <!-- Interesses -->
     <section id="interesses" class="section">
         <div class="container">
             <h2 class="section-title typing" data-text="Interesses"><span></span></h2>
@@ -222,7 +211,6 @@
         </div>
     </section>
 
-    <!-- Contato -->
     <section id="contato" class="section">
         <div class="container">
             <h2 class="section-title">Vamos nos Conectar</h2>
@@ -237,5 +225,7 @@
 
 <footer class="footer"><div class="container"><p>&copy; 2025 Heron de Souza</p></div></footer>
 <a href="#" id="btnTop" class="btn-top" title="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
+
+<script src="script.js" defer></script>
 </body>
 </html>
