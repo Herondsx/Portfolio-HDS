@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     typeOnce(document.getElementById('typeWelcome'), 'Bem-vindo ao meu portfólio');
 
-    // Títulos com digitação quando entram na tela
     const headingObs = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
@@ -101,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: .3 });
     document.querySelectorAll('.section-title.typing').forEach(h => headingObs.observe(h));
 
-    // Reveal on scroll
     const revealObs = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -112,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-    // Abrir/fechar detalhes de projetos
     document.querySelectorAll('.toggle-details').forEach(btn => {
         btn.addEventListener('click', () => {
             const d = btn.nextElementSibling;
@@ -137,15 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
         renderer.setPixelRatio(DPR);
         renderer.setSize(rootEl.clientWidth, rootEl.clientHeight);
-        renderer.setClearColor(0x000000, 1);
+        renderer.setClearColor(0x000000, 0); // MELHORIA: Fundo transparente para usar o do CSS
         rootEl.appendChild(renderer.domElement);
 
-        scene.add(new THREE_.AmbientLight(0xffffff, 0.4));
+        // scene.add(new THREE_.AmbientLight(0xffffff, 0.4)); // OTIMIZAÇÃO: Removido, pois PointsMaterial não reage à luz.
 
         const galaxyGroup = new THREE_.Group();
         scene.add(galaxyGroup);
 
-        // Estrelas de fundo
         const bgCount = isMobile ? 2500 : 4000;
         const bgGeom = new THREE_.BufferGeometry();
         const bgPos = new Float32Array(bgCount * 3);
@@ -153,16 +149,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const theta = Math.random() * Math.PI * 2;
             const phi = Math.acos(2 * Math.random() - 1);
             const r = 80;
-            bgPos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
-            bgPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
-            bgPos[i*3+2] = r * Math.cos(phi);
+            bgPos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+            bgPos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            bgPos[i * 3 + 2] = r * Math.cos(phi);
         }
         bgGeom.setAttribute('position', new THREE_.BufferAttribute(bgPos, 3));
         const bgMat = new THREE_.PointsMaterial({ size: 0.06, sizeAttenuation: true, color: 0xffffff, opacity: 0.6, transparent: true });
         const bgStars = new THREE_.Points(bgGeom, bgMat);
         galaxyGroup.add(bgStars);
 
-        // Parâmetros (escalonados por área e mobile)
         const area = rootEl.clientWidth * rootEl.clientHeight;
         let baseCount = Math.floor(area / 8);
         baseCount = Math.max(16000, Math.min(90000, baseCount));
@@ -206,13 +201,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const randY = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius * 0.35;
                 const randZ = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
 
-                positions[i3]   = Math.cos(branchAngle + spinAngle) * radius + randX;
-                positions[i3+1] = randY * 0.8;
-                positions[i3+2] = Math.sin(branchAngle + spinAngle) * radius + randZ;
+                positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randX;
+                positions[i3 + 1] = randY * 0.8;
+                positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randZ;
 
                 const t = radius / params.radius;
                 const c = params.insideColor.clone().lerp(params.outsideColor, t);
-                colors[i3]   = c.r; colors[i3+1] = c.g; colors[i3+2] = c.b;
+                colors[i3] = c.r; colors[i3 + 1] = c.g; colors[i3 + 2] = c.b;
             }
 
             galaxyGeom.setAttribute('position', new THREE_.BufferAttribute(positions, 3));
@@ -228,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         generateGalaxy();
 
-        // Shooting stars
         const shootingStars = [];
         function spawnShootingStar() {
             const theta = Math.random() * Math.PI * 2;
@@ -240,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 r * Math.sin(phi) * Math.sin(theta),
                 r * Math.cos(phi)
             );
-            const dir = pos.clone().multiplyScalar(-1).add(new THREE_.Vector3((Math.random()-0.5)*6,(Math.random()-0.5)*6,(Math.random()-0.5)*6)).normalize();
+            const dir = pos.clone().multiplyScalar(-1).add(new THREE_.Vector3((Math.random() - 0.5) * 6, (Math.random() - 0.5) * 6, (Math.random() - 0.5) * 6)).normalize();
 
             const head = new THREE_.Mesh(
                 new THREE_.SphereGeometry(0.06, 8, 8),
@@ -252,9 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const trailCount = 16;
             const trailPos = new Float32Array(trailCount * 3);
             for (let i = 0; i < trailCount; i++) {
-                trailPos[i*3] = pos.x - i*0.12*dir.x;
-                trailPos[i*3+1] = pos.y - i*0.12*dir.y;
-                trailPos[i*3+2] = pos.z - i*0.12*dir.z;
+                trailPos[i * 3] = pos.x - i * 0.12 * dir.x;
+                trailPos[i * 3 + 1] = pos.y - i * 0.12 * dir.y;
+                trailPos[i * 3 + 2] = pos.z - i * 0.12 * dir.z;
             }
             trailGeom.setAttribute('position', new THREE_.BufferAttribute(trailPos, 3));
             const trail = new THREE_.Points(trailGeom, new THREE_.PointsMaterial({
@@ -264,17 +258,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const star = new THREE_.Group();
             star.add(head); star.add(trail);
             star.userData = { dir, life: 0, maxLife: 2.5, trailGeom };
-            scene.add(star);
+            
+            // CORREÇÃO: Adicionar a estrela cadente ao grupo que gira, e não à cena estática.
+            galaxyGroup.add(star);
             shootingStars.push(star);
         }
 
-        // Controles: desktop (mouse) + mobile (toque/pinça)
         let isDragging = false;
         const rot = { x: 0.2, y: 0 };
         const vel = { x: 0, y: 0 };
         let last = { x: 0, y: 0 };
 
-        // Mouse
         renderer.domElement.addEventListener('pointerdown', (e) => {
             if (e.pointerType === 'mouse') {
                 isDragging = true; last.x = e.clientX; last.y = e.clientY;
@@ -287,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dy = (e.clientY - last.y) * 0.005;
             vel.y = dx; vel.x = dy;
             rot.y += dx;
-            rot.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, rot.x + dy));
+            rot.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rot.x + dy));
             last.x = e.clientX; last.y = e.clientY;
         });
         renderer.domElement.addEventListener('wheel', (e) => {
@@ -295,7 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
             camera.position.z = THREE_.MathUtils.clamp(camera.position.z + e.deltaY * 0.0025, 3.5, 14);
         }, { passive: false });
 
-        // Touch: arrasto + pinch
         let activeTouches = [];
         let pinchStartDist = 0;
         function getTouchPos(e, i) {
@@ -312,23 +305,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 last.y = activeTouches[0].clientY;
             } else if (activeTouches.length === 2) {
                 isDragging = false;
-                pinchStartDist = dist(getTouchPos(e,0), getTouchPos(e,1));
+                pinchStartDist = dist(getTouchPos(e, 0), getTouchPos(e, 1));
             }
         }, { passive: true });
 
         renderer.domElement.addEventListener('touchmove', (e) => {
-            if (e.touches.length === 1) {
-                // arrastar
+            // MELHORIA: Prevenir o scroll da página enquanto se interage com o canvas no telemóvel
+            e.preventDefault();
+
+            if (e.touches.length === 1 && isDragging) {
                 const t = e.touches[0];
                 const dx = (t.clientX - last.x) * 0.005;
                 const dy = (t.clientY - last.y) * 0.005;
                 rot.y += dx;
-                rot.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, rot.x + dy));
+                rot.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rot.x + dy));
                 last.x = t.clientX; last.y = t.clientY;
             } else if (e.touches.length === 2) {
-                // pinch zoom
-                e.preventDefault();
-                const dNow = dist(getTouchPos(e,0), getTouchPos(e,1));
+                const dNow = dist(getTouchPos(e, 0), getTouchPos(e, 1));
                 const delta = (pinchStartDist - dNow) * 0.01;
                 camera.position.z = THREE_.MathUtils.clamp(camera.position.z + delta, 3.5, 14);
                 pinchStartDist = dNow;
@@ -337,15 +330,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('touchend', () => { activeTouches = []; isDragging = false; }, { passive: true });
 
-        // Resize
         function onResize() {
             camera.aspect = rootEl.clientWidth / rootEl.clientHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(rootEl.clientWidth, rootEl.clientHeight);
         }
         window.addEventListener('resize', onResize);
+        
+        // CORREÇÃO INICIAL: Chamar onResize uma vez para garantir que o tamanho inicial está correto.
+        onResize();
 
-        // Animação
         const clock = new THREE_.Clock();
         let spawnTimer = 0;
         function animate() {
@@ -362,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
             galaxyGroup.scale.setScalar(pulse);
 
             spawnTimer += dt;
-            if (spawnTimer > (isMobile ? 1.1 : 0.9) + Math.random()*0.8) {
+            if (spawnTimer > (isMobile ? 1.1 : 0.9) + Math.random() * 0.8) {
                 spawnTimer = 0;
                 if (shootingStars.length < (isMobile ? 4 : 6)) spawnShootingStar();
             }
@@ -375,13 +369,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const arr = s.userData.trailGeom.attributes.position.array;
                 for (let k = arr.length - 3; k >= 3; k--) {
-                    arr[k] = arr[k-3]; arr[k+1] = arr[k-2]; arr[k+2] = arr[k-1];
+                    arr[k] = arr[k - 3]; arr[k + 1] = arr[k - 2]; arr[k + 2] = arr[k - 1];
                 }
                 arr[0] = s.position.x; arr[1] = s.position.y; arr[2] = s.position.z;
                 s.userData.trailGeom.attributes.position.needsUpdate = true;
 
                 if (s.userData.life > s.userData.maxLife) {
-                    scene.remove(s);
+                    // CORREÇÃO: Remover a estrela do grupo correto
+                    galaxyGroup.remove(s);
                     shootingStars.splice(i, 1);
                 }
             }
