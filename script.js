@@ -260,4 +260,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-Agora, com estes três ficheiros, o seu portfólio deve carregar a galáxia interativa na secção correta, sem erros. Espero que goste do resulta
