@@ -1,225 +1,231 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1"/>
-    <title>Portfólio | Heron de Souza</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1"/>
+  <title>Portfólio | Heron de Souza</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
+  <!-- Three.js r128 (compatível com seu ambiente) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <link rel="stylesheet" href="stylesheet.css"/>
+  <link rel="stylesheet" href="stylesheet.css"/>
 </head>
 <body>
 <header class="header">
-    <nav class="nav container">
-        <h1 class="logo"><a href="#">Heron<span>.</span></a></h1>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#sobre">Sobre</a></li>
-            <li><a href="#formacao">Formação</a></li>
-            <li><a href="#experiencia">Experiência</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#galaxia">3D</a></li>
-            <li><a href="#interesses">Interesses</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
-        <div class="nav-actions">
-            <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-            <div class="burger" id="burger"><span></span><span></span><span></span></div>
-        </div>
-    </nav>
+  <nav class="nav container">
+    <h1 class="logo"><a href="#">Heron<span>.</span></a></h1>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#formacao">Formação</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#galaxia">3D</a></li>
+      <li><a href="#interesses">Interesses</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="burger" id="burger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
 </header>
 
 <main>
-    <section id="sobre" class="section hero">
-        <div class="container hero-grid">
-            <div class="hero-copy">
-                <h1 class="hero-title white"><span id="typeWelcome" class="type"></span></h1>
-                <p class="hero-text">
-                    <strong>Me chamo Heron de Souza</strong>. Este portfólio apresenta quem sou, minha formação, experiências
-                    na faculdade e no trabalho — e, principalmente, o que eu sei <strong>entregar</strong>: produtos com
-                    interface limpa, arquitetura sólida e impacto prático.
-                </p>
-                <p class="hero-text">
-                    Aqui também demonstro minhas habilidades de <strong>front-end</strong> — gestão e articulação de páginas,
-                    microinterações e elementos <strong>3D</strong> em JavaScript.
-                </p>
-                <p class="hero-text">
-                    Gosto de <strong>resolver problemas</strong>, <strong>arquitetar software</strong> e entender desafios
-                    computacionais de ponta a ponta. Atuo como <strong>full-stack</strong> (front, back e desktop), hoje com foco
-                    em <em>automação industrial</em> e <em>Digital Manufacturing</em> na Comau, priorizando clareza de código,
-                    testes, telemetria e entrega contínua.
-                </p>
-                <a href="#contato" class="btn primary" id="cta">Falar comigo</a>
-            </div>
-            <div class="hero-art clean">
-                <div class="blob b1" style="left:-40px; top:-30px"></div>
-                <div class="blob b2"></div>
-                <div class="blob b3"></div>
-                <div class="foto-perfil">
-                    <img src="ProfilePhoto.jpg" alt="Foto de Heron de Souza"/>
-                </div>
-            </div>
+  <!-- HERO -->
+  <section id="sobre" class="section hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title white"><span id="typeWelcome" class="type"></span></h1>
+        <p class="hero-text">
+          <strong>Me chamo Heron de Souza</strong>. Este portfólio apresenta quem sou, minha formação,
+          experiências e — principalmente — o que eu sei <strong>entregar</strong>: interfaces limpas,
+          arquitetura sólida e impacto prático. Também demonstro minhas habilidades de <strong>Front-End</strong>
+          (gestão e articulação de páginas, microinterações e elementos <strong>3D</strong> em JavaScript).
+        </p>
+        <p class="hero-text">
+          Gosto de <strong>resolver problemas</strong>, <strong>arquitetar software</strong> e entender desafios
+          de ponta a ponta. Atuo como <strong>full-stack</strong> (front, back e desktop), hoje com foco em
+          <em>automação industrial</em> e <em>Digital Manufacturing</em> na Comau — priorizando clareza de código,
+          testes, telemetria e entrega contínua.
+        </p>
+        <a href="#contato" class="btn primary" id="cta">Falar comigo</a>
+      </div>
+      <div class="hero-art clean">
+        <div class="blob b1" style="left:-40px; top:-30px"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+        <div class="foto-perfil">
+          <img src="ProfilePhoto.jpg" alt="Foto de Heron de Souza"/>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="formacao" class="section surface">
-        <div class="container">
-            <h2 class="section-title typing" data-text="Formação"><span></span></h2>
-            <div class="formacao-grid">
-                <a class="formacao-item hover-up reveal" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer">
-                    <img src="Fei_Logo.png" alt="Logo da FEI"/>
-                    <h3>Ciência da Computação</h3>
-                    <p>Centro Universitário FEI • 2023 → 2027</p>
-                </a>
-                <a class="formacao-item hover-up reveal" href="https://cert.efset.org/en/4CmKYu" target="_blank" rel="noreferrer">
-                    <img src="Ef_Set_Logo.png" alt="Logo da EF SET"/>
-                    <h3>Inglês — Certificação EF SET</h3>
-                    <p>Conversação e escrita com fluência</p>
-                </a>
-                <div class="formacao-item hover-up reveal">
-                    <img src="Fund_Bradesco_Logo.png" alt="Logo da Fundação Bradesco"/>
-                    <h3>Cursos Livres</h3>
-                    <p>TI, Lógica e Gestão • Escola Virtual</p>
-                </div>
-            </div>
+  <!-- Formação -->
+  <section id="formacao" class="section surface">
+    <div class="container">
+      <h2 class="section-title typing" data-text="Formação"><span></span></h2>
+      <div class="formacao-grid">
+        <a class="formacao-item hover-up reveal" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer">
+          <img src="Fei_Logo.png" alt="FEI"/>
+          <h3>Ciência da Computação</h3>
+          <p>Centro Universitário FEI • 2023 → 2027</p>
+        </a>
+        <a class="formacao-item hover-up reveal" href="https://cert.efset.org/en/4CmKYu" target="_blank" rel="noreferrer">
+          <img src="Ef_Set_Logo.png" alt="EF SET"/>
+          <h3>Inglês — Certificação EF SET</h3>
+          <p>Conversação e escrita com fluência</p>
+        </a>
+        <div class="formacao-item hover-up reveal">
+          <img src="Fund_Bradesco_Logo.png" alt="Fundação Bradesco"/>
+          <h3>Cursos Livres</h3>
+          <p>TI, Lógica e Gestão • Escola Virtual</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="experiencia" class="section">
-        <div class="container">
-            <h2 class="section-title typing" data-text="Experiência"><span></span></h2>
-            <div class="card experiencia-card reveal">
-                <img src="Comau_Logo.png" alt="Logo da Comau" class="empresa-logo"/>
-                <h3>Estagiário de Automação Industrial — Comau (Digital Manufacturing Brasil)</h3>
-                <span class="date">ago 2025 – presente</span>
-                <p>Crio e evoluo soluções internas para engenharia e operação, com foco em qualidade e velocidade de entrega:</p>
-                <ul class="lista-exp">
-                    <li>Aplicações <strong>Blazor/.NET</strong> para gestão de projetos e padronização de fluxos.</li>
-                    <li>Apps <strong>WPF</strong> para extração/análise de solda e redução de retrabalho.</li>
-                    <li><strong>Automação</strong> de rotinas e melhorias de <strong>macros</strong> para produtividade.</li>
-                    <li>Ferramentas e integrações com <strong>Siemens Process Simulate</strong> (APIs/Extensões).</li>
-                    <li>Telemetria, dashboards e métricas de engenharia para tomada de decisão.</li>
-                    <li>Práticas de DevOps, revisão de código e colaboração em squads internacionais.</li>
-                </ul>
-                <p class="nota-exp">Vivência prévia com <strong>Process Simulate</strong> em estudos e POCs.</p>
-            </div>
-        </div>
-    </section>
+  <!-- Experiência -->
+  <section id="experiencia" class="section">
+    <div class="container">
+      <h2 class="section-title typing" data-text="Experiência"><span></span></h2>
+      <div class="card experiencia-card reveal">
+        <img src="Comau_Logo.png" alt="Comau" class="empresa-logo"/>
+        <h3>Estagiário de Automação Industrial — Comau (Digital Manufacturing Brasil)</h3>
+        <span class="date">abr 2025 – presente</span>
+        <p>Crio e evoluo soluções internas para engenharia e operação:</p>
+        <ul class="lista-exp">
+          <li>Aplicações <strong>Blazor/.NET</strong> para gestão e padronização de fluxos.</li>
+          <li>Apps <strong>WPF</strong> para extração/análise de solda.</li>
+          <li>Automação de rotinas e <strong>macros</strong> para produtividade.</li>
+          <li>Ferramentas e integrações com <strong>Siemens Process Simulate</strong>.</li>
+          <li>Telemetria e dashboards para acompanhamento técnico.</li>
+          <li>Práticas de DevOps e colaboração com squads internacionais.</li>
+        </ul>
+        <p class="nota-exp">Vivência prévia com <strong>Process Simulate</strong> em estudos e POCs.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="skills" class="section surface">
-        <div class="container">
-            <h2 class="section-title typing" data-text="Skills & Ferramentas"><span></span></h2>
-            <div class="skills-grid">
-                <div class="skill-item reveal"><img src="HTML_Logo.png" alt="Logo HTML5"><span>HTML5</span></div>
-                <div class="skill-item reveal"><img src="CSS_Logo.png" alt="Logo CSS3"><span>CSS3</span></div>
-                <div class="skill-item reveal"><img src="JS_Logo.png" alt="Logo JavaScript"><span>JavaScript</span></div>
-                <div class="skill-item reveal"><img src="React_Logo.png" alt="Logo React"><span>React</span></div>
-                <div class="skill-item reveal"><img src="Python_Logo.png" alt="Logo Python"><span>Python</span></div>
-                <div class="skill-item reveal"><img src="Java_Logo.png" alt="Logo Java"><span>Java</span></div>
-                <div class="skill-item reveal"><img src="C_Logo.png" alt="Logo C"><span>C</span></div>
-                <div class="skill-item reveal"><img src="Csharp_Logo.png" alt="Logo C#"><span>C#</span></div>
-                <div class="skill-item reveal"><img src="Wpf_Logo (2).png" alt="Logo WPF"><span>WPF</span></div>
-                <div class="skill-item reveal"><img src="Process_Logo.png" alt="Logo Process Simulate"><span>Process Simulate</span></div>
-            </div>
-        </div>
-    </section>
+  <!-- Skills -->
+  <section id="skills" class="section surface">
+    <div class="container">
+      <h2 class="section-title typing" data-text="Skills & Ferramentas"><span></span></h2>
+      <div class="skills-grid">
+        <div class="skill-item reveal"><img src="HTML_Logo.png" alt=""><span>HTML5</span></div>
+        <div class="skill-item reveal"><img src="CSS_Logo.png" alt=""><span>CSS3</span></div>
+        <div class="skill-item reveal"><img src="JS_Logo.png" alt=""><span>JavaScript</span></div>
+        <div class="skill-item reveal"><img src="React_Logo.png" alt=""><span>React</span></div>
+        <div class="skill-item reveal"><img src="Python_Logo.png" alt=""><span>Python</span></div>
+        <div class="skill-item reveal"><img src="Java_Logo.png" alt=""><span>Java</span></div>
+        <div class="skill-item reveal"><img src="C_Logo.png" alt=""><span>C</span></div>
+        <div class="skill-item reveal"><img src="Csharp_Logo.png" alt=""><span>C#</span></div>
+        <div class="skill-item reveal"><img src="Wpf_Logo (2).png" alt=""><span>WPF</span></div>
+        <div class="skill-item reveal"><img src="Process_Logo.png" alt=""><span>Process Simulate</span></div>
+      </div>
+    </div>
+  </section>
 
-    <section id="projetos" class="section">
-        <div class="container">
-            <h2 class="section-title typing" data-text="Projetos em Destaque"><span></span></h2>
-            <div class="grid-projects">
-                <article class="project-card reveal">
-                    <header><h3>Intelligent Issue Management Platform</h3></header>
-                    <p>Orquestração de ocorrências com priorização automática e apoio de IA. Projeto interno — arquitetura e desenvolvimento próprios.</p>
-                    <button class="btn secondary toggle-details">Ver mais</button>
-                    <div class="project-details">
-                        <ul>
-                            <li><strong>Back-end:</strong> ASP.NET Core (REST), JWT, RBAC, jobs e cache.</li>
-                            <li><strong>IA:</strong> serviços Python (classificação/cluster) e cálculo de prioridade.</li>
-                            <li><strong>Dados/DevOps:</strong> SQL Server, EF Migrations, telemetria e Azure.</li>
-                            <li><strong>Front:</strong> React + TypeScript, filtros, exportação e UI responsiva.</li>
-                        </ul>
-                    </div>
-                </article>
+  <!-- Projetos -->
+  <section id="projetos" class="section">
+    <div class="container">
+      <h2 class="section-title typing" data-text="Projetos em Destaque"><span></span></h2>
+      <div class="grid-projects">
+        <article class="project-card reveal">
+          <header><h3>Intelligent Issue Management Platform</h3></header>
+          <p>Orquestração de ocorrências com priorização automática e apoio de IA.</p>
+          <button class="btn secondary toggle-details">Ver mais</button>
+          <div class="project-details">
+            <ul>
+              <li><strong>Back-end:</strong> ASP.NET Core (REST), JWT, RBAC, jobs e cache.</li>
+              <li><strong>IA:</strong> serviços Python (classificação/cluster) e cálculo de prioridade.</li>
+              <li><strong>Dados/DevOps:</strong> SQL Server, EF Migrations, telemetria e Azure.</li>
+              <li><strong>Front:</strong> React + TypeScript, filtros, exportação e UI responsiva.</li>
+            </ul>
+          </div>
+        </article>
 
-                <article class="project-card reveal">
-                    <header><h3>Mock-Up Virtual</h3></header>
-                    <p>Protótipo de gêmeo digital para célula robotizada. Projeto interno — arquitetura e desenvolvimento próprios.</p>
-                    <button class="btn secondary toggle-details">Ver mais</button>
-                    <div class="project-details">
-                        <ul>
-                            <li><strong>Motor:</strong> Unity + C# (cinemática, timeline, simulação).</li>
-                            <li><strong>Integração:</strong> ROSBridge/UDP para I/O e envio de pontos.</li>
-                            <li><strong>Planejamento:</strong> Process Simulate (alcance/colisão).</li>
-                        </ul>
-                    </div>
-                </article>
+        <article class="project-card reveal">
+          <header><h3>Mock-Up Virtual</h3></header>
+          <p>Protótipo de gêmeo digital para célula robotizada.</p>
+          <button class="btn secondary toggle-details">Ver mais</button>
+          <div class="project-details">
+            <ul>
+              <li><strong>Motor:</strong> Unity + C# (cinemática, timeline, simulação).</li>
+              <li><strong>Integração:</strong> ROSBridge/UDP para I/O e envio de pontos.</li>
+              <li><strong>Planejamento:</strong> Process Simulate (alcance/colisão).</li>
+            </ul>
+          </div>
+        </article>
 
-                <article class="project-card reveal">
-                    <header><h3>Weld Trace Extractor</h3></header>
-                    <p>Extração e organização de pontos de solda a partir de código de robôs. Projeto interno — arquitetura e desenvolvimento próprios.</p>
-                    <button class="btn secondary toggle-details">Ver mais</button>
-                    <div class="project-details">
-                        <ul>
-                            <li><strong>Desktop:</strong> WPF (.NET) com parsing e validação.</li>
-                            <li><strong>Automação:</strong> extensões para Process Simulate.</li>
-                            <li><strong>Exportação:</strong> CSV/Excel e integração com APIs internas.</li>
-                        </ul>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
+        <article class="project-card reveal">
+          <header><h3>Weld Trace Extractor</h3></header>
+          <p>Extração e organização de pontos de solda a partir de código de robôs.</p>
+          <button class="btn secondary toggle-details">Ver mais</button>
+          <div class="project-details">
+            <ul>
+              <li><strong>Desktop:</strong> WPF (.NET) com parsing e validação.</li>
+              <li><strong>Automação:</strong> extensões para Process Simulate.</li>
+              <li><strong>Exportação:</strong> CSV/Excel e integração com APIs internas.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-    <section id="galaxia" class="section surface">
-        <div class="container">
-            <h2 class="section-title typing" data-text="Galáxia Interativa (Three.js)"><span></span></h2>
-            <p style="color:var(--muted);margin-bottom:1rem">
-                Mova o mouse sobre a galáxia para explorar.
-            </p>
-            <div id="galaxy3d" class="scene3d" aria-label="Galáxia 3D interativa"></div>
-        </div>
-    </section>
+  <!-- Galáxia -->
+  <section id="galaxia" class="section surface">
+    <div class="container">
+      <h2 class="section-title typing" data-text="Galáxia Interativa (Three.js)"><span></span></h2>
+      <p style="color:var(--muted);margin-bottom:1rem">
+        Arraste para girar • Scroll/Pinça para zoom • Clique para criar uma onda • Duplo clique: pausar/retomar.
+      </p>
+      <div id="galaxy3d" class="scene3d" aria-label="Galáxia 3D interativa"></div>
+    </div>
+  </section>
 
-    <section id="interesses" class="section">
-        <div class="container">
-            <h2 class="section-title typing" data-text="Interesses"><span></span></h2>
-            <div class="chips">
-                <span class="chip reveal">Automação & Robótica</span>
-                <span class="chip reveal">Arquitetura de Software Limpo</span>
-                <span class="chip reveal">Design de Interfaces</span>
-                <span class="chip reveal">Indústria Automotiva</span>
-                <span class="chip reveal">Mercado de Automóveis</span>
-                <span class="chip reveal">Investimentos</span>
-                <span class="chip reveal">Mercado de Computadores</span>
-                <span class="chip reveal">Vendas de PCs & Periféricos</span>
-                <span class="chip reveal">Arquitetura & Estudo de Hardware</span>
-                <span class="chip reveal">Tendências de Componentes</span>
-                <span class="chip reveal">Benchmarking & Otimização</span>
-                <span class="chip reveal">Jogar Jogos</span>
-            </div>
-        </div>
-    </section>
+  <!-- Interesses -->
+  <section id="interesses" class="section">
+    <div class="container">
+      <h2 class="section-title typing" data-text="Interesses"><span></span></h2>
+      <div class="chips">
+        <span class="chip reveal">Automação & Robótica</span>
+        <span class="chip reveal">Arquitetura de Software Limpo</span>
+        <span class="chip reveal">Design de Interfaces</span>
+        <span class="chip reveal">Indústria Automotiva</span>
+        <span class="chip reveal">Mercado de Automóveis</span>
+        <span class="chip reveal">Investimentos</span>
+        <span class="chip reveal">Mercado de Computadores</span>
+        <span class="chip reveal">Vendas de PCs & Periféricos</span>
+        <span class="chip reveal">Arquitetura & Estudo de Hardware</span>
+        <span class="chip reveal">Tendências de Componentes</span>
+        <span class="chip reveal">Benchmarking & Otimização</span>
+        <span class="chip reveal">Jogar Jogos</span>
+      </div>
+    </div>
+  </section>
 
-    <section id="contato" class="section">
-        <div class="container">
-            <h2 class="section-title">Vamos nos Conectar</h2>
-            <div class="social-links">
-                <a class="btn secondary" href="mailto:heron.souza56@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
-                <a class="btn secondary" href="https://www.linkedin.com/in/heron-de-souza-a0511b323/" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                <a class="btn secondary" href="https://github.com/Herondsx" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
-            </div>
-        </div>
-    </section>
+  <!-- Contato -->
+  <section id="contato" class="section">
+    <div class="container">
+      <h2 class="section-title">Vamos nos Conectar</h2>
+      <div class="social-links">
+        <a class="btn secondary" href="mailto:heron.souza56@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a class="btn secondary" href="https://www.linkedin.com/in/heron-de-souza-a0511b323/" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        <a class="btn secondary" href="https://github.com/Herondsx" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="footer"><div class="container"><p>&copy; 2025 Heron de Souza</p></div></footer>
