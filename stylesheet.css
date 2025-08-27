@@ -85,7 +85,6 @@ body{font-family:Poppins,sans-serif;background:var(--bg);color:var(--text)}
     border:1px solid var(--border);background:var(--panel); cursor: grab;
 }
 .scene3d:active { cursor: grabbing; }
-/* NOVA REGRA: Garante que o canvas preencha o container */
 .scene3d canvas {
     display: block;
     width: 100%;
