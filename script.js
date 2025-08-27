@@ -120,28 +120,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== GALÁXIA 3D (VERSÃO INTEGRADA E CORRIGIDA) =====
+    // ===== GALÁXIA 3D (MUDANÇA: VERSÃO COM ORBITCONTROLS) =====
     const galaxyContainer = document.getElementById('galaxy3d');
+    // Verifica se a biblioteca THREE e o container existem
     if (galaxyContainer && window.THREE) {
         initGalaxy(galaxyContainer);
     }
 
     function initGalaxy(rootEl) {
+        // Renomeei para evitar conflito de nomes e garantir que estamos usando o THREE global
         const THREE_ = window.THREE;
         const isMobile = matchMedia('(max-width: 768px)').matches;
 
         // 1. CENA E CÂMERA
         const scene = new THREE_.Scene();
         const camera = new THREE_.PerspectiveCamera(70, rootEl.clientWidth / rootEl.clientHeight, 0.1, 100);
-        camera.position.set(0, 3, isMobile ? 10 : 8); // Posição inicial da câmera
-        
+        camera.position.set(0, 3, isMobile ? 10 : 8);
+
         // 2. RENDERIZADOR
         const renderer = new THREE_.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(rootEl.clientWidth, rootEl.clientHeight);
-        rootEl.appendChild(renderer.domElement); // Adiciona o canvas ao div
+        rootEl.appendChild(renderer.domElement);
 
-        // 3. GERADOR DE GALÁXIA
+        // MUDANÇA: 3. CONTROLES (OrbitControls)
+        // Esta é a biblioteca que importamos no HTML.
+        // Ela cuida de toda a lógica de arrastar, zoom e rotação.
+        const controls = new THREE_.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // Efeito de "desaceleração" suave
+        controls.enableZoom = true;    // Permite zoom com scroll ou pinça
+        controls.autoRotate = true;    // Faz a galáxia girar sozinha lentamente
+        controls.autoRotateSpeed = 0.4;
+        controls.maxDistance = 15;     // Limite máximo de zoom out
+        controls.minDistance = 4;      // Limite máximo de zoom in
+
+        // 4. GERADOR DE GALÁXIA (O seu código original, que é ótimo!)
         const params = {
             count: isMobile ? 40000 : 80000,
             size: 0.02,
@@ -168,15 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const radius = Math.random() * params.radius;
                 const spinAngle = radius * params.spin;
                 const branchAngle = ((i % params.branches) / params.branches) * Math.PI * 2;
-
                 const randomX = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
                 const randomY = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius * 0.5;
                 const randomZ = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
-
                 positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
                 positions[i3 + 1] = randomY;
                 positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
-
                 const mixedColor = colorInside.clone().lerp(colorOutside, radius / params.radius);
                 colors[i3] = mixedColor.r;
                 colors[i3 + 1] = mixedColor.g;
@@ -198,38 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
             scene.add(galaxyPoints);
         }
         generateGalaxy();
-
-        // 4. CONTROLOS (Arrastar e Zoom)
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-        let rotation = { x: 0.4, y: 0 }; // Rotação inicial
-
-        // Mouse
-        renderer.domElement.addEventListener('pointerdown', (e) => {
-            isDragging = true;
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-        window.addEventListener('pointermove', (e) => {
-            if (!isDragging) return;
-            const deltaMove = {
-                x: e.clientX - previousMousePosition.x,
-                y: e.clientY - previousMousePosition.y
-            };
-            rotation.y += deltaMove.x * 0.005;
-            rotation.x += deltaMove.y * 0.005;
-            rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rotation.x)); // Limita a rotação vertical
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-        window.addEventListener('pointerup', () => { isDragging = false; });
-        renderer.domElement.addEventListener('pointerleave', () => { isDragging = false; });
-
-        // Zoom com a roda do rato
-        renderer.domElement.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            camera.position.z = THREE_.MathUtils.clamp(camera.position.z + e.deltaY * 0.01, 4, 15);
-        }, { passive: false });
         
         // 5. RESPONSIVIDADE
         function onResize() {
@@ -241,22 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', onResize);
 
         // 6. LOOP DE ANIMAÇÃO
-        const clock = new THREE_.Clock();
         function animate() {
-            const elapsedTime = clock.getElapsedTime();
+            // MUDANÇA: Atualiza os controles em cada frame para o damping funcionar
+            controls.update();
             
-            // Rotação automática lenta
-            rotation.y += 0.0001;
-            
-            // Aplica a rotação do utilizador e a automática
-            galaxyPoints.rotation.y = rotation.y;
-            galaxyPoints.rotation.x = rotation.x;
-
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
         animate();
     }
 });
-```
-
