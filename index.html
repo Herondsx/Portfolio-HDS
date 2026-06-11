@@ -93,7 +93,7 @@
         <div class="container">
             <span class="eyebrow">O que eu entrego</span>
             <div class="services-head">
-                <h2 class="section-title typing" data-text="Serviços Freelance"><span></span></h2>
+                <h2 class="section-title">Serviços Freelance</h2>
                 <p>Disponível para projetos sob demanda — do conceito à entrega. Código limpo,
                    boas práticas e foco em resultado real para o seu negócio.</p>
             </div>
@@ -123,10 +123,44 @@
                     <div class="tags"><span>Python</span><span>Process Simulate</span><span>ETL</span></div>
                 </div>
             </div>
+            <div class="showcase-head reveal">
+                <span class="eyebrow">Demo ao vivo</span>
+                <h3 class="showcase-title">Do código ao produto, em tempo real</h3>
+                <p>Uma prévia de como eu construo software — o código à esquerda gera a interface rodando à direita.</p>
+            </div>
+            <div class="showcase reveal" id="showcase">
+                <div class="window">
+                    <div class="window-bar">
+                        <span class="dots"><i></i><i></i><i></i></span>
+                        <div class="tabs" id="scTabs">
+                            <button class="tab active" type="button">Dashboard.jsx</button>
+                            <button class="tab" type="button">WeldScanner.cs</button>
+                            <button class="tab" type="button">server.js</button>
+                        </div>
+                        <span class="win-lang" id="scLang">React</span>
+                    </div>
+                    <div class="window-body">
+                        <div class="editor">
+                            <div class="gutter" id="scGutter"></div>
+                            <div class="code" id="scCode"></div>
+                        </div>
+                        <div class="preview" id="scPreview"></div>
+                    </div>
+                    <div class="window-status">
+                        <span><i class="fa-solid fa-code-branch"></i> main</span>
+                        <span class="st-build" id="scBuild"><i class="fa-regular fa-circle"></i> compilando…</span>
+                        <span class="st-pos" id="scPos">Ln 1, Col 1</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="services-cta reveal">
                 <h3>Tem um projeto em mente?</h3>
                 <p>Vamos conversar sobre como posso ajudar a tirar a sua ideia do papel.</p>
-                <a href="#contato" class="btn primary"><i class="fa-solid fa-comments"></i> Solicitar orçamento</a>
+                <div class="cta-actions">
+                    <a href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noreferrer" class="btn whatsapp"><i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp</a>
+                    <a href="mailto:heron.souza56@gmail.com" class="btn ghost"><i class="fa-solid fa-envelope"></i> Enviar e-mail</a>
+                </div>
             </div>
         </div>
     </section>
@@ -135,7 +169,7 @@
     <section id="formacao" class="section">
         <div class="container">
             <span class="eyebrow">Base acadêmica</span>
-            <h2 class="section-title typing" data-text="Formação"><span></span></h2>
+            <h2 class="section-title">Formação</h2>
             <div class="formacao-grid">
                 <a class="formacao-item hover-up reveal" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer">
                     <img src="Fei_Logo.png" alt="FEI" loading="lazy" decoding="async"/>
@@ -160,7 +194,7 @@
     <section id="experiencia" class="section">
         <div class="container">
             <span class="eyebrow">Trajetória</span>
-            <h2 class="section-title typing" data-text="Experiência"><span></span></h2>
+            <h2 class="section-title">Experiência</h2>
             <div class="card experiencia-card reveal">
                 <img src="Comau_Logo.png" alt="Comau" class="empresa-logo" loading="lazy" decoding="async"/>
                 <h3>Estagiário de Desenvolvimento de Software — Comau (Engenharia)</h3>
@@ -183,7 +217,7 @@
     <section id="skills" class="section">
         <div class="container">
             <span class="eyebrow">Ferramentas</span>
-            <h2 class="section-title typing" data-text="Skills & Ferramentas"><span></span></h2>
+            <h2 class="section-title">Skills &amp; Ferramentas</h2>
             <div class="skills-grid">
                 <div class="skill-item reveal"><img src="HTML_Logo.png" alt="Logo HTML5" loading="lazy" decoding="async"><span>HTML5</span></div>
                 <div class="skill-item reveal"><img src="CSS_Logo.png" alt="Logo CSS3" loading="lazy" decoding="async"><span>CSS3</span></div>
@@ -203,7 +237,7 @@
     <section id="projetos" class="section">
         <div class="container">
             <span class="eyebrow">Portfólio</span>
-            <h2 class="section-title typing" data-text="Projetos em Destaque"><span></span></h2>
+            <h2 class="section-title">Projetos em Destaque</h2>
             <div class="grid-projects">
                 <article class="project-card reveal">
                     <div class="project-header">
@@ -279,7 +313,7 @@
     <section id="interesses" class="section">
         <div class="container">
             <span class="eyebrow">Além do código</span>
-            <h2 class="section-title typing" data-text="Interesses"><span></span></h2>
+            <h2 class="section-title">Interesses</h2>
             <div class="chips">
                 <span class="chip reveal">Automação & Robótica</span>
                 <span class="chip reveal">Arquitetura de Software Limpo</span>
@@ -305,6 +339,7 @@
                 <h2>Vamos nos Conectar</h2>
                 <p>Tem um projeto, uma oportunidade ou apenas quer trocar uma ideia? Estou a um clique de distância.</p>
                 <div class="social-links">
+                    <a class="btn whatsapp" href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
                     <a class="btn primary" href="mailto:heron.souza56@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
                     <a class="btn secondary" href="https://www.linkedin.com/in/heron-de-souza-a0511b323/" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
                     <a class="btn secondary" href="https://github.com/Herondsx" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
@@ -320,9 +355,14 @@
     </div>
 </footer>
 
+<a href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto."
+   class="wa-float" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" title="Falar no WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
 <a href="#sobre" id="btnTop" class="btn-top" title="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
 
 <script type="module" src="three-scene.js"></script>
 <script src="script.js" defer></script>
+<script src="showcase.js" defer></script>
 </body>
 </html>

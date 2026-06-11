@@ -75,18 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {
         })();
     }
 
-    /* ---------- Spotlight + tilt nos cards de serviço ---------- */
-    document.querySelectorAll('.tilt').forEach(card => {
-        card.addEventListener('pointermove', e => {
-            const r = card.getBoundingClientRect();
-            const px = (e.clientX - r.left) / r.width;
-            const py = (e.clientY - r.top) / r.height;
-            card.style.setProperty('--mx', (px * 100) + '%');
-            card.style.setProperty('--my', (py * 100) + '%');
-            card.style.transform = `translateY(-8px) rotateX(${(0.5 - py) * 6}deg) rotateY(${(px - 0.5) * 6}deg)`;
+    /* ---------- Spotlight + tilt nos cards (somente mouse/desktop) ---------- */
+    if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+        document.querySelectorAll('.tilt').forEach(card => {
+            card.addEventListener('pointermove', e => {
+                const r = card.getBoundingClientRect();
+                const px = (e.clientX - r.left) / r.width;
+                const py = (e.clientY - r.top) / r.height;
+                card.style.setProperty('--mx', (px * 100) + '%');
+                card.style.setProperty('--my', (py * 100) + '%');
+                card.style.transform =
+                    `perspective(800px) translateY(-8px) rotateX(${(0.5 - py) * 6}deg) rotateY(${(px - 0.5) * 6}deg)`;
+            });
+            card.addEventListener('pointerleave', () => { card.style.transform = ''; });
         });
-        card.addEventListener('pointerleave', () => { card.style.transform = ''; });
-    });
+    }
 
     /* ---------- Ripple nos botões ---------- */
     document.querySelectorAll('.btn').forEach(btn => {
@@ -119,17 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })();
     }
     typeOnce(document.getElementById('typeWelcome'), 'Desenvolvedor Full-Stack · Engenharia de Software');
-
-    const headingObs = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            const h = entry.target, span = h.querySelector('span');
-            typeOnce(span, h.getAttribute('data-text') || h.textContent.trim(), 22);
-            h.classList.add('done');
-            headingObs.unobserve(h);
-        });
-    }, { threshold: .35 });
-    document.querySelectorAll('.section-title.typing').forEach(h => headingObs.observe(h));
 
     /* ---------- Reveal no scroll ---------- */
     const revealObs = new IntersectionObserver(entries => {
