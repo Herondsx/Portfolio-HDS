@@ -71,47 +71,55 @@
     {
       lang: 'C# · WPF',
       lines: [
-        [['public void ', 'k'], ['LoadBackup', 'f'], ['(string path) {', 'p']],
-        [['    var points = ', 'p'], ['Parser', 't'], ['.', 'p'], ['Extract', 'f'], ['(path);', 'p']],
-        [['    foreach ', 'k'], ['(var p ', 'p'], ['in ', 'k'], ['points)', 'p']],
-        [['        Grid.Rows.', 'p'], ['Add', 'f'], ['(p.Id, p.Path, p.Status);', 'p']],
-        [['    Status = ', 'p'], ['"Build succeeded"', 's'], [';', 'p']],
+        [['public void ', 'k'], ['LoadRecords', 'f'], ['() {', 'p']],
+        [['    var items = ', 'p'], ['Repository', 't'], ['.', 'p'], ['GetAll', 'f'], ['();', 'p']],
+        [['    foreach ', 'k'], ['(var x ', 'p'], ['in ', 'k'], ['items)', 'p']],
+        [['        Grid.Rows.', 'p'], ['Add', 'f'], ['(x.Id, x.Category, x.Status);', 'p']],
+        [['    Status = ', 'p'], ['"Pronto"', 's'], [';', 'p']],
         [['}', 'p']]
       ],
       preview: `
         <div class="pv pv-app">
           <div class="pv-load"><span class="spin"></span><small>Compilando build…</small></div>
-          <div class="app-tb"><span>WeldScanner — Comau</span><span class="app-win">— ▢ ✕</span></div>
-          <div class="app-tools"><button>Importar backup</button><button>Exportar CSV</button><span class="app-search">Buscar ponto…</span></div>
-          <div class="ag">
-            <div class="ag-h"><span>ID</span><span>Trajetória</span><span>Status</span></div>
-            <div class="ag-r" style="--d:1"><span>P-001</span><span>WELD_L</span><span class="pill grn">aprovado</span></div>
-            <div class="ag-r" style="--d:2"><span>P-002</span><span>WELD_R</span><span class="pill yel">em revisão</span></div>
-            <div class="ag-r" style="--d:3"><span>P-003</span><span>SEAL_F</span><span class="pill grn">aprovado</span></div>
-            <div class="ag-r" style="--d:4"><span>P-004</span><span>WELD_T</span><span class="pill red">pendente</span></div>
-            <div class="ag-r" style="--d:5"><span>P-005</span><span>SEAL_B</span><span class="pill grn">aprovado</span></div>
+          <div class="app-tb"><span class="app-name"><span class="app-ico">▦</span> Sistema Desktop</span><span class="app-win">— ▢ ✕</span></div>
+          <div class="app-body">
+            <aside class="app-side"><span class="ai active"></span><span class="ai"></span><span class="ai"></span><span class="ai"></span></aside>
+            <div class="app-content">
+              <div class="app-head"><b>Registros</b><span class="app-chip">128 itens</span><span class="app-chip ok"><i class="fa-solid fa-arrow-trend-up"></i> 12%</span><span class="app-search">Buscar…</span></div>
+              <div class="ag">
+                <div class="ag-h"><span>Item</span><span>Categoria</span><span>Status</span></div>
+                <div class="ag-r" style="--d:1"><span class="cell"><i class="rb b1">F</i>#1042</span><span>Financeiro</span><span class="pill grn">aprovado</span></div>
+                <div class="ag-r" style="--d:2"><span class="cell"><i class="rb b2">O</i>#1043</span><span>Operações</span><span class="pill yel">em análise</span></div>
+                <div class="ag-r" style="--d:3"><span class="cell"><i class="rb b3">C</i>#1044</span><span>Comercial</span><span class="pill grn">aprovado</span></div>
+                <div class="ag-r" style="--d:4"><span class="cell"><i class="rb b4">L</i>#1045</span><span>Logística</span><span class="pill red">pendente</span></div>
+                <div class="ag-r" style="--d:5"><span class="cell"><i class="rb b1">F</i>#1046</span><span>Financeiro</span><span class="pill grn">aprovado</span></div>
+              </div>
+            </div>
           </div>
         </div>`
     },
     {
       lang: 'Node.js',
       lines: [
-        [['app.', 'p'], ['get', 'f'], ['(', 'p'], ['"/api/devices"', 's'], [', ', 'p'], ['async', 'k'], [' (req, res) => {', 'p']],
-        [['  const rows = ', 'p'], ['await', 'k'], [' db.', 'p'], ['query', 'f'], ['(SQL);', 'p']],
-        [['  res.', 'p'], ['json', 'f'], ['({ ', 'p'], ['ok', 'a'], [': ', 'p'], ['true', 'k'], [', ', 'p'], ['data', 'a'], [': rows });', 'p']],
+        [['app.', 'p'], ['get', 'f'], ['(', 'p'], ['"/api/usuarios"', 's'], [', ', 'p'], ['async', 'k'], [' (req, res) => {', 'p']],
+        [['  const data = ', 'p'], ['await', 'k'], [' db.', 'p'], ['query', 'f'], ['(SQL);', 'p']],
+        [['  res.', 'p'], ['json', 'f'], ['({ ', 'p'], ['ok', 'a'], [': ', 'p'], ['true', 'k'], [', ', 'p'], ['data', 'a'], [' });', 'p']],
         [['});', 'p']]
       ],
       preview: `
-        <div class="pv pv-term">
+        <div class="pv pv-api">
           <div class="pv-load"><span class="spin"></span><small>Iniciando servidor…</small></div>
-          <div class="term-bar"><span class="pv-dot red"></span><span class="pv-dot yel"></span><span class="pv-dot grn"></span><span>node · server</span></div>
-          <div class="term-body">
-            <p style="--d:1"><span class="pr">$</span>npm start</p>
-            <p style="--d:2" class="ok">▲ API pronta em http://localhost:3000</p>
-            <p style="--d:3" class="lg"><b class="m-get">GET</b> /api/devices <b class="c2">200</b> <span>12ms</span></p>
-            <p style="--d:4" class="lg"><b class="m-post">POST</b> /api/devices <b class="c2">201</b> <span>23ms</span></p>
-            <p style="--d:5" class="lg"><b class="m-get">GET</b> /api/status <b class="c2">200</b> <span>5ms</span></p>
-            <p style="--d:6" class="js">{ "ok": true, "data": [ 128 devices ] }</p>
+          <div class="pv-bar"><span class="pv-dot red"></span><span class="pv-dot yel"></span><span class="pv-dot grn"></span><span class="pv-url">api.heron.dev</span></div>
+          <div class="api">
+            <div class="api-top"><b>Monitor de Requisições</b><span class="live"><i></i>ao vivo</span></div>
+            <div class="api-list">
+              <div class="api-row" style="--d:1"><b class="mb get">GET</b><span class="ep">/api/usuarios</span><span class="lat"><i style="--w:26%"></i></span><span class="st2">200</span></div>
+              <div class="api-row" style="--d:2"><b class="mb post">POST</b><span class="ep">/api/usuarios</span><span class="lat"><i style="--w:48%"></i></span><span class="st2">201</span></div>
+              <div class="api-row" style="--d:3"><b class="mb get">GET</b><span class="ep">/api/pedidos</span><span class="lat"><i style="--w:18%"></i></span><span class="st2">200</span></div>
+              <div class="api-row" style="--d:4"><b class="mb put">PUT</b><span class="ep">/api/pedidos/42</span><span class="lat"><i style="--w:62%"></i></span><span class="st2">200</span></div>
+              <div class="api-row" style="--d:5"><b class="mb get">GET</b><span class="ep">/api/status</span><span class="lat"><i style="--w:10%"></i></span><span class="st2">200</span></div>
+            </div>
+            <div class="api-foot"><span><b class="count" data-to="128">0</b> req/min</span><span class="api-ok"><i class="fa-solid fa-circle-check"></i> 99.9% uptime</span></div>
           </div>
         </div>`
     }
