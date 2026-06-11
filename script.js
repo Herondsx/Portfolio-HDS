@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else el.classList.add('done');
         })();
     }
-    typeOnce(document.getElementById('typeWelcome'), 'Desenvolvedor Full-Stack · Engenharia de Software');
+    typeOnce(document.getElementById('typeWelcome'), 'Front-End · Desktop · Back-End');
 
     /* ---------- Reveal no scroll ---------- */
     const revealObs = new IntersectionObserver(entries => {

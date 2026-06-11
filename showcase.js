@@ -35,18 +35,35 @@
         [['}', 'p']]
       ],
       preview: `
-        <div class="pv pv-dash">
-          <div class="pv-bar"><span class="pv-dot red"></span><span class="pv-dot yel"></span><span class="pv-dot grn"></span><span class="pv-url">app.heron.dev/dashboard</span></div>
-          <div class="dash">
-            <div class="dash-h"><b>Analytics</b><span class="live"><i></i>ao vivo</span></div>
-            <div class="kpis">
-              <div class="kpi"><span>Usuários</span><b class="count" data-to="1280">0</b></div>
-              <div class="kpi"><span>Receita</span><b class="count" data-to="94" data-prefix="R$ " data-suffix="k">0</b></div>
-              <div class="kpi"><span>Uptime</span><b class="count" data-to="99" data-suffix="%">0</b></div>
-            </div>
-            <div class="bars">
-              <span style="--h:55%"></span><span style="--h:80%"></span><span style="--h:42%"></span>
-              <span style="--h:95%"></span><span style="--h:68%"></span><span style="--h:58%"></span><span style="--h:88%"></span>
+        <div class="pv pv-saas">
+          <div class="pv-load"><span class="spin"></span><small>Compilando build…</small></div>
+          <div class="pv-bar"><span class="pv-dot red"></span><span class="pv-dot yel"></span><span class="pv-dot grn"></span><span class="pv-url">app.heron.dev</span></div>
+          <div class="saas">
+            <aside class="saas-side">
+              <div class="saas-logo">◆</div>
+              <span class="si active"></span><span class="si"></span><span class="si"></span><span class="si"></span><span class="si"></span>
+            </aside>
+            <div class="saas-main">
+              <div class="saas-top"><b>Visão geral</b><span class="saas-av"></span></div>
+              <div class="kpis">
+                <div class="kpi"><span>Usuários</span><b class="count" data-to="1280">0</b></div>
+                <div class="kpi"><span>Receita</span><b class="count" data-to="94" data-prefix="R$ " data-suffix="k">0</b></div>
+                <div class="kpi"><span>Uptime</span><b class="count" data-to="99" data-suffix="%">0</b></div>
+              </div>
+              <div class="saas-chart">
+                <svg viewBox="0 0 300 90" preserveAspectRatio="none">
+                  <defs><linearGradient id="scg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#7df0ff" stop-opacity=".35"/><stop offset="1" stop-color="#7df0ff" stop-opacity="0"/>
+                  </linearGradient></defs>
+                  <path class="area" d="M0,70 L43,55 L86,60 L129,38 L172,46 L215,26 L258,33 L300,12 L300,90 L0,90 Z" fill="url(#scg)"/>
+                  <path class="line" d="M0,70 L43,55 L86,60 L129,38 L172,46 L215,26 L258,33 L300,12" fill="none" stroke="#7df0ff" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="saas-rows">
+                <div class="srow" style="--d:1"><span class="sdot grn"></span>Deploy publicado <i>agora</i></div>
+                <div class="srow" style="--d:2"><span class="sdot blu"></span>Novo usuário registrado <i>2 min</i></div>
+                <div class="srow" style="--d:3"><span class="sdot yel"></span>Pico de tráfego detectado <i>5 min</i></div>
+              </div>
             </div>
           </div>
         </div>`
@@ -63,6 +80,7 @@
       ],
       preview: `
         <div class="pv pv-app">
+          <div class="pv-load"><span class="spin"></span><small>Compilando build…</small></div>
           <div class="app-tb"><span>WeldScanner — Comau</span><span class="app-win">— ▢ ✕</span></div>
           <div class="app-tools"><button>Importar backup</button><button>Exportar CSV</button><span class="app-search">Buscar ponto…</span></div>
           <div class="ag">
@@ -85,6 +103,7 @@
       ],
       preview: `
         <div class="pv pv-term">
+          <div class="pv-load"><span class="spin"></span><small>Iniciando servidor…</small></div>
           <div class="term-bar"><span class="pv-dot red"></span><span class="pv-dot yel"></span><span class="pv-dot grn"></span><span>node · server</span></div>
           <div class="term-body">
             <p style="--d:1"><span class="pr">$</span>npm start</p>
@@ -177,14 +196,14 @@
     const caret = document.createElement('span');
     caret.className = 'caret';
     lineEls[0].appendChild(caret);
-    const speed = opts.fast ? 5 : 16;
+    const speed = opts.fast ? 2 : 6;
     let li = 0, ti = 0, ci = 0, span = null, spanCls = null;
 
     (function step() {
       if (li >= demo.lines.length) {
         caret.remove();
         finish(pv);
-        wait(next, 3400);
+        wait(next, 4000);
         return;
       }
       const line = demo.lines[li];
@@ -192,7 +211,7 @@
         li++; ti = 0; ci = 0; span = null; spanCls = null;
         if (li < lineEls.length) lineEls[li].appendChild(caret);
         posEl.textContent = 'Ln ' + Math.min(li + 1, demo.lines.length) + ', Col 1';
-        wait(step, speed * 4);
+        wait(step, speed * 3);
         return;
       }
       const [text, cls] = line[ti];

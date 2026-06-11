@@ -126,8 +126,8 @@ img{max-width:100%}
 /* ---------- Seções genéricas ------------------------------------------- */
 .section{padding:6rem 0;position:relative;z-index:2}
 .eyebrow{
-  display:inline-block;font-family:'Sora',sans-serif;font-size:.78rem;font-weight:600;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;
+  display:block;font-family:'Sora',sans-serif;font-size:.78rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem;
 }
 .section-title{
   font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:700;margin-bottom:2.4rem;position:relative;
@@ -163,6 +163,7 @@ img{max-width:100%}
   position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;
   gap:3rem;align-items:center;
 }
+.hero-copy,.hero-art{min-width:0}
 .badge{
   display:inline-flex;align-items:center;gap:.55rem;
   padding:.45rem .9rem;border-radius:999px;font-size:.82rem;font-weight:600;
@@ -180,9 +181,10 @@ img{max-width:100%}
 }
 .type-kicker{
   display:block;font-family:'Sora',sans-serif;color:var(--muted);font-weight:500;
-  font-size:1rem;margin-bottom:.6rem;min-height:1.2em;
+  font-size:1rem;margin-bottom:.6rem;min-height:1.2em;max-width:100%;
   border-right:.1em solid var(--accent);padding-right:.1em;white-space:nowrap;overflow:hidden;
 }
+.hero-title{overflow-wrap:break-word}
 .type-kicker.done{border-right-color:transparent}
 .hero-title{
   font-size:clamp(2.2rem,5.4vw,4rem);font-weight:800;line-height:1.05;margin-bottom:1.3rem;
@@ -413,7 +415,7 @@ img{max-width:100%}
 .showcase-head{text-align:center;max-width:640px;margin:3.4rem auto 1.6rem}
 .showcase-title{font-size:clamp(1.4rem,3.2vw,2rem);margin:.5rem 0}
 .showcase-head p{color:var(--muted)}
-.showcase{max-width:980px;margin:0 auto}
+.showcase{max-width:980px;margin:2.6rem auto 0}
 
 .window{
   border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);
@@ -534,4 +536,62 @@ img{max-width:100%}
 @media (max-width:380px){
   .win-lang{display:none}
   .editor{font-size:.7rem}
+}
+
+/* =========================================================================
+   PREVIEW: overlay de "boot" + dashboard SaaS (app rodando de verdade)
+   ========================================================================= */
+.pv{position:relative}
+.pv-load{
+  position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.7rem;background:#070b16;
+  color:#7e89a8;font:.72rem 'Inter',sans-serif;transition:opacity .45s,visibility .45s;
+}
+.pv-load .spin{
+  width:30px;height:30px;border-radius:50%;border:3px solid rgba(125,240,255,.2);
+  border-top-color:#7df0ff;animation:spin360 .8s linear infinite;
+}
+@keyframes spin360{to{transform:rotate(360deg)}}
+.run .pv-load{opacity:0;visibility:hidden}
+
+/* Dashboard SaaS */
+.saas{display:flex;flex:1;min-height:0}
+.saas-side{width:46px;flex-shrink:0;background:#0b1124;border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;gap:.55rem;padding:.7rem 0}
+.saas-logo{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,#7df0ff,#5e9bff);color:#04210f;font-size:.75rem;margin-bottom:.3rem}
+.si{width:22px;height:8px;border-radius:4px;background:rgba(255,255,255,.08)}
+.si.active{background:#7df0ff}
+.saas-main{flex:1;padding:.7rem .8rem;display:flex;flex-direction:column;gap:.55rem;min-width:0}
+.saas-top{display:flex;align-items:center;justify-content:space-between}
+.saas-top b{font:700 .9rem 'Sora',sans-serif;color:#eaf0ff}
+.saas-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#5e9bff)}
+.saas-chart{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:.4rem;height:84px}
+.saas-chart svg{width:100%;height:100%;display:block}
+.saas-chart .line{stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.4s ease}
+.run .saas-chart .line{stroke-dashoffset:0}
+.saas-chart .area{opacity:0;transition:opacity .8s .6s}
+.run .saas-chart .area{opacity:1}
+.saas-rows{display:flex;flex-direction:column;gap:.35rem}
+.srow{display:flex;align-items:center;gap:.5rem;font:.72rem 'Inter',sans-serif;color:#aab2d5;opacity:0;transform:translateY(6px)}
+.run .srow{opacity:1;transform:none;transition:opacity .4s,transform .4s;transition-delay:calc(var(--d)*.15s + .4s)}
+.srow i{margin-left:auto;color:#5f6b85;font-style:normal}
+.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sdot.grn{background:#5bf0a0}.sdot.blu{background:#82aaff}.sdot.yel{background:#ffd166}
+
+/* =========================================================================
+   FIX MOBILE: overflow horizontal + tamanhos
+   ========================================================================= */
+html{max-width:100%;overflow-x:hidden}
+@media (max-width:768px){
+  .type-kicker{font-size:.88rem}
+  .hero-title{font-size:clamp(1.9rem,7.5vw,2.6rem)}
+}
+@media (max-width:760px){
+  .saas-side{width:38px}
+  .saas-chart{height:70px}
+  .saas-main{padding:.6rem}
+  .saas-top b{font-size:.82rem}
+}
+@media (max-width:380px){
+  .type-kicker{font-size:.8rem}
+  .kpi b{font-size:.85rem}
 }
