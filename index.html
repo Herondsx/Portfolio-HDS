@@ -1,128 +1,538 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-theme="dark">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-    <title>Heron de Souza · Desenvolvedor Full-Stack & Freelancer</title>
-    <meta name="description" content="Portfólio de Heron de Souza — desenvolvedor full-stack (Front-End, Desktop e Back-End) e freelancer. Engenharia de software que une arquitetura sólida e design impecável."/>
-    <meta name="theme-color" content="#05070f"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <title>Heron de Souza · Desenvolvedor Full-Stack</title>
+    <meta name="description" content="Portfólio de Heron de Souza — desenvolvedor full-stack (Front-End, Desktop e Back-End). Engenharia de software na Comau e projetos freelance sob medida."/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="color-scheme" content="light dark"/>
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Heron de Souza · Desenvolvedor Full-Stack & Freelancer"/>
-    <meta property="og:description" content="Engenharia de software que une arquitetura sólida e design impecável. Disponível para projetos freelance."/>
+    <meta property="og:title" content="Heron de Souza · Desenvolvedor Full-Stack"/>
+    <meta property="og:description" content="Software de ponta a ponta: Front-End, Desktop e Back-End. Disponível para projetos freelance."/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="ProfilePhoto.jpg"/>
 
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23000'/%3E%3Ctext x='31' y='45' font-family='-apple-system,Helvetica,Arial,sans-serif' font-size='38' font-weight='700' fill='%23fff' text-anchor='middle'%3EH%3C/text%3E%3Ccircle cx='50' cy='42' r='4' fill='%230a84ff'/%3E%3C/svg%3E"/>
+
+    <!-- Tema antes do primeiro paint (evita "piscar") -->
+    <script>
+        (function () {
+            var root = document.documentElement, t;
+            try { t = localStorage.getItem('theme'); } catch (e) {}
+            if (t !== 'light' && t !== 'dark') {
+                t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            root.setAttribute('data-theme', t);
+            root.classList.add('js');
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="stylesheet.css"/>
 </head>
 <body>
-<div class="scroll-progress" id="scrollProgress"></div>
-<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<a class="skip-link" href="#sobre">Pular para o conteúdo</a>
 
-<header class="header">
-    <nav class="nav container">
-        <h1 class="logo"><a href="#sobre">Heron<span>.</span></a></h1>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#sobre">Sobre</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#formacao">Formação</a></li>
-            <li><a href="#experiencia">Experiência</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#interesses">Interesses</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+    <div class="nav-inner container">
+        <a class="brand" href="#inicio" aria-label="Heron de Souza — início">Heron<span>.</span></a>
+
+        <nav class="nav-menu" id="navMenu" aria-label="Principal">
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#experiencia">Experiência</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <a class="btn btn-primary nav-menu-cta" href="#contato">Iniciar um projeto</a>
+        </nav>
+
         <div class="nav-actions">
-            <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">
-                <i class="fa-solid fa-sun"></i>
+            <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema claro/escuro">
+                <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.6A8.6 8.6 0 0 1 9.4 3.6a8.6 8.6 0 1 0 11 11z"/></svg>
+                <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2.2M12 19.4v2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.4 12h2.2M19.4 12h2.2M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
             </button>
-            <div class="burger" id="burger"><span></span><span></span><span></span></div>
+            <a class="btn btn-primary btn-sm nav-cta" href="#contato">Contratar</a>
+            <button class="icon-btn burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
+                <span></span><span></span>
+            </button>
         </div>
-    </nav>
+    </div>
 </header>
 
 <main>
-    <!-- ===================== HERO + cena 3D ===================== -->
-    <section id="sobre" class="hero">
+    <!-- ============================ HERO 3D ============================ -->
+    <section class="hero" id="inicio" aria-label="Apresentação">
         <canvas id="hero-canvas" aria-hidden="true"></canvas>
-        <div class="hero-overlay"></div>
-        <div class="container hero-grid">
-            <div class="hero-copy">
-                <span class="badge"><span class="dot"></span> Disponível para projetos freelance</span>
-                <span id="typeWelcome" class="type-kicker"></span>
-                <h1 class="hero-title">
-                    Engenheiro <span class="gradient-text">Full-Stack</span> de Software.
-                </h1>
-                <p class="hero-text">
-                    Sou <strong>Heron de Souza</strong>, desenvolvedor <strong>full-stack</strong> com atuação em
-                    Front-End, Desktop e Back-End. Projeto e construo sistemas com foco em arquitetura sólida,
-                    performance e código sustentável.
-                </p>
-                <p class="hero-text">
-                    Atuo com <em>engenharia de software</em> e <em>Digital Manufacturing</em> na Comau e também
-                    <strong>presto serviços como freelancer</strong>, desenvolvendo soluções completas para web e desktop.
-                </p>
-                <div class="hero-actions">
-                    <a href="#contato" class="btn primary"><i class="fa-solid fa-paper-plane"></i> Falar comigo</a>
-                    <a href="#servicos" class="btn ghost"><i class="fa-solid fa-briefcase"></i> Serviços freelance</a>
-                    <a href="#projetos" class="btn ghost"><i class="fa-solid fa-rocket"></i> Ver projetos</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat"><strong>Full-Stack</strong><span>Front · Desktop · Back</span></div>
-                    <div class="stat"><strong>Comau</strong><span>Eng. de Software</span></div>
-                    <div class="stat"><strong>FEI</strong><span>Ciência da Computação</span></div>
-                </div>
-            </div>
-            <div class="hero-art">
-                <div class="photo-ring">
-                    <img src="ProfilePhoto.jpg" alt="Foto de Heron de Souza" fetchpriority="high"/>
-                </div>
+
+        <!-- Fallback em CSS 3D, exibido só se o WebGL não carregar -->
+        <div class="chip-fallback" aria-hidden="true">
+            <div class="cf-board">
+                <div class="cf-sub"><div class="cf-top"><b>HdS</b><small>FULL-STACK</small></div></div>
             </div>
         </div>
-        <a href="#servicos" class="scroll-cue" aria-label="Rolar para baixo"></a>
+
+        <div class="hero-copy container">
+            <a class="hero-badge" href="#contato"><span class="live-dot"></span>Disponível para projetos freelance<span class="chev" aria-hidden="true">›</span></a>
+            <p class="hero-name">Heron de Souza</p>
+            <h1 class="hero-title">Software de <span class="grad-text">ponta a ponta.</span></h1>
+            <p class="hero-lead">Desenvolvedor full-stack — Front-End, Desktop e Back-End. Engenharia de software na Comau e projetos freelance sob medida.</p>
+            <div class="hero-cta">
+                <a class="btn btn-primary btn-lg" href="#contato">Falar comigo</a>
+                <a class="btn-link btn-link-light" href="#projetos">Ver projetos <span aria-hidden="true">›</span></a>
+            </div>
+        </div>
+
+        <a class="hero-scroll" href="#sobre" aria-label="Rolar para o conteúdo"><span></span></a>
     </section>
 
-    <!-- ===================== SERVIÇOS / FREELANCER ===================== -->
-    <section id="servicos" class="section">
-        <div class="container">
-            <span class="eyebrow">O que eu entrego</span>
-            <div class="services-head">
-                <h2 class="section-title">Serviços Freelance</h2>
-                <p>Desenvolvo soluções sob demanda, da concepção à entrega, com código limpo,
-                   boas práticas e foco em resultados mensuráveis.</p>
+    <!-- ============================ DESTAQUES ============================ -->
+    <section class="stats" aria-label="Destaques">
+        <div class="container stats-grid" data-stagger>
+            <div class="stat reveal">
+                <strong><span data-count="3">3</span></strong>
+                <span>frentes de atuação: Web, Desktop e APIs</span>
             </div>
-            <div class="services-grid">
-                <div class="service-card tilt reveal">
-                    <div class="service-icon"><i class="fa-solid fa-code"></i></div>
-                    <h3>Front-End & Web Apps</h3>
+            <div class="stat reveal">
+                <strong><span data-count="10">10</span>+</strong>
+                <span>linguagens e frameworks no repertório</span>
+            </div>
+            <div class="stat reveal">
+                <strong>2025</strong>
+                <span>início na engenharia de software da Comau</span>
+            </div>
+            <div class="stat reveal">
+                <strong>2027</strong>
+                <span>formatura em Ciência da Computação na FEI</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================ SOBRE (bento) ============================ -->
+    <section class="section section-alt" id="sobre">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="eyebrow">Sobre</p>
+                <h2 class="title">Arquitetura sólida.<br/>Design impecável.</h2>
+            </header>
+
+            <div class="bento" data-stagger>
+                <figure class="tile tile-photo reveal tilt">
+                    <img src="assets/img/heron-900.webp"
+                         srcset="assets/img/heron-480.webp 480w, assets/img/heron-900.webp 900w"
+                         sizes="(max-width: 760px) 100vw, 380px"
+                         width="900" height="1182" alt="Foto de Heron de Souza" loading="lazy" decoding="async"/>
+                    <figcaption><b>Heron de Souza</b><span>Desenvolvedor Full-Stack</span></figcaption>
+                </figure>
+
+                <article class="tile tile-bio reveal">
+                    <h3 class="tile-title">Oi, eu sou o Heron.</h3>
+                    <p>Sou desenvolvedor <strong>full-stack</strong>, com atuação em Front-End, Desktop e Back-End. Projeto e construo sistemas com foco em arquitetura sólida, performance e código sustentável.</p>
+                    <p>Atuo com <strong>engenharia de software</strong> e <strong>Digital Manufacturing</strong> na Comau e também presto serviços como <strong>freelancer</strong>, desenvolvendo soluções completas para web e desktop.</p>
+                    <div class="bio-tags">
+                        <span><i class="fa-solid fa-code"></i> Front-End</span>
+                        <span><i class="fa-solid fa-display"></i> Desktop</span>
+                        <span><i class="fa-solid fa-server"></i> Back-End</span>
+                    </div>
+                </article>
+
+                <article class="tile tile-now reveal">
+                    <div class="tile-row">
+                        <span class="logo-tile logo-wide"><img src="assets/img/comau.webp" width="320" height="50" alt="Comau" loading="lazy" decoding="async"/></span>
+                        <span class="status"><span class="live-dot"></span>Atual</span>
+                    </div>
+                    <p class="tile-kicker">Atualmente</p>
+                    <h3 class="tile-h">Engenharia de Software na Comau</h3>
+                    <p class="tile-sub">Digital Manufacturing · desde abr 2025</p>
+                </article>
+
+                <article class="tile tile-edu reveal">
+                    <div class="tile-row">
+                        <a class="logo-tile logo-wide" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer" aria-label="Site da FEI"><img src="assets/img/fei.webp" width="320" height="187" alt="FEI" loading="lazy" decoding="async"/></a>
+                    </div>
+                    <p class="tile-kicker">Formação</p>
+                    <h3 class="tile-h">Ciência da Computação</h3>
+                    <p class="tile-sub">Centro Universitário FEI</p>
+                    <div class="timeline" id="eduTimeline" data-start="2023-02-01" data-end="2027-12-15" aria-label="Curso de 2023 a 2027">
+                        <div class="timeline-track"><span class="timeline-fill"></span><span class="timeline-now"></span></div>
+                        <div class="timeline-labels"><span>2023</span><span>2027</span></div>
+                    </div>
+                </article>
+
+                <article class="tile tile-int reveal">
+                    <p class="tile-kicker">Interesses</p>
+                    <h3 class="tile-h">Além do código.</h3>
+                    <div class="int-groups">
+                        <div class="int-group">
+                            <span class="int-label"><i class="fa-solid fa-microchip"></i> Tecnologia</span>
+                            <div class="chips">
+                                <span class="chip">Arquitetura de Software Limpo</span>
+                                <span class="chip">Design de Interfaces</span>
+                                <span class="chip">Arquitetura &amp; Estudo de Hardware</span>
+                                <span class="chip">Tendências de Componentes</span>
+                                <span class="chip">Benchmarking &amp; Otimização</span>
+                            </div>
+                        </div>
+                        <div class="int-group">
+                            <span class="int-label"><i class="fa-solid fa-industry"></i> Indústria</span>
+                            <div class="chips">
+                                <span class="chip">Automação &amp; Robótica</span>
+                                <span class="chip">Indústria Automotiva</span>
+                                <span class="chip">Mercado de Automóveis</span>
+                            </div>
+                        </div>
+                        <div class="int-group">
+                            <span class="int-label"><i class="fa-solid fa-chart-line"></i> Mercado</span>
+                            <div class="chips">
+                                <span class="chip">Investimentos</span>
+                                <span class="chip">Mercado de Computadores</span>
+                                <span class="chip">Vendas de PCs &amp; Periféricos</span>
+                            </div>
+                        </div>
+                        <div class="int-group">
+                            <span class="int-label"><i class="fa-solid fa-gamepad"></i> Lazer</span>
+                            <div class="chips"><span class="chip">Jogos</span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="tile tile-lang reveal">
+                    <div class="tile-row">
+                        <span class="logo-tile logo-wide"><img src="assets/img/efset.webp" width="320" height="75" alt="EF SET" loading="lazy" decoding="async"/></span>
+                    </div>
+                    <p class="tile-kicker">Idiomas</p>
+                    <h3 class="tile-h">Inglês fluente</h3>
+                    <p class="tile-sub">Certificação EF SET — conversação e escrita.</p>
+                    <a class="btn-link" href="https://cert.efset.org/pt/J7Sgxw" target="_blank" rel="noreferrer">Ver certificado <span aria-hidden="true">›</span></a>
+                </article>
+
+                <article class="tile tile-course reveal">
+                    <div class="tile-row">
+                        <span class="logo-tile"><img src="assets/img/bradesco.webp" width="174" height="192" alt="Fundação Bradesco" loading="lazy" decoding="async"/></span>
+                    </div>
+                    <p class="tile-kicker">Cursos livres</p>
+                    <h3 class="tile-h">TI, Lógica e Gestão</h3>
+                    <p class="tile-sub">Escola Virtual · Fundação Bradesco</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================ EXPERIÊNCIA ============================ -->
+    <section class="section" id="experiencia">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="eyebrow">Experiência</p>
+                <h2 class="title">Software para quem<br/>constrói a indústria.</h2>
+                <p class="lead">Ferramentas internas para engenharia e operação, do desktop à web, integradas a sistemas de robótica e manufatura digital.</p>
+            </header>
+
+            <article class="xp reveal">
+                <div class="xp-main">
+                    <div class="xp-head">
+                        <span class="logo-tile logo-wide logo-lg"><img src="assets/img/comau.webp" width="320" height="50" alt="Comau" loading="lazy" decoding="async"/></span>
+                        <span class="status"><span class="live-dot"></span>abr 2025 — presente</span>
+                    </div>
+                    <h3 class="xp-role">Estagiário de Desenvolvimento de Software</h3>
+                    <p class="xp-org">Comau · Engenharia</p>
+                    <p class="xp-text">Crio e evoluo soluções internas para engenharia e operação, atuando diretamente no <strong>ambiente de desenvolvimento</strong> com foco em ferramentas robustas e escaláveis.</p>
+                    <p class="xp-tool"><i class="fa-solid fa-screwdriver-wrench"></i> Ferramenta principal: <strong>Visual Studio Professional 2022</strong></p>
+                </div>
+
+                <div class="xp-art" data-depth>
+                    <svg class="robot" viewBox="0 0 480 380" role="img" aria-label="Ilustração de um robô industrial soldando uma peça">
+                        <defs>
+                            <linearGradient id="rbMetal" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0" class="rb-s1"/><stop offset=".45" class="rb-s2"/><stop offset="1" class="rb-s3"/>
+                            </linearGradient>
+                            <linearGradient id="rbDark" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#48484a"/><stop offset="1" stop-color="#1c1c1e"/>
+                            </linearGradient>
+                            <linearGradient id="rbPanel" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" class="rb-p1"/><stop offset="1" class="rb-p2"/>
+                            </linearGradient>
+                            <radialGradient id="rbSpark">
+                                <stop offset="0" stop-color="#ffffff"/>
+                                <stop offset=".3" stop-color="#ffd60a"/>
+                                <stop offset="1" stop-color="#ff9f0a" stop-opacity="0"/>
+                            </radialGradient>
+                            <filter id="rbBlur" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="9"/></filter>
+                        </defs>
+
+                        <ellipse class="rb-shadow" cx="250" cy="346" rx="190" ry="13" filter="url(#rbBlur)"/>
+
+                        <!-- peça sendo soldada -->
+                        <g class="rb-work">
+                            <rect x="290" y="226" width="178" height="46" rx="11" fill="url(#rbPanel)"/>
+                            <rect class="rb-edge" x="290" y="226" width="178" height="5" rx="2.5"/>
+                            <circle class="weld" cx="312" cy="250" r="4.5" style="--d:0"/>
+                            <circle class="weld" cx="336" cy="250" r="4.5" style="--d:1"/>
+                            <circle class="weld" cx="360" cy="250" r="4.5" style="--d:2"/>
+                            <circle class="weld" cx="384" cy="250" r="4.5" style="--d:3"/>
+                            <circle class="weld" cx="408" cy="250" r="4.5" style="--d:4"/>
+                            <circle class="weld" cx="432" cy="250" r="4.5" style="--d:5"/>
+                            <circle class="weld" cx="452" cy="250" r="4.5" style="--d:6"/>
+                        </g>
+
+                        <!-- base -->
+                        <rect x="118" y="326" width="164" height="18" rx="9" fill="url(#rbDark)"/>
+                        <rect x="152" y="262" width="96" height="68" rx="16" fill="url(#rbMetal)"/>
+                        <rect class="rb-accent-soft" x="152" y="300" width="96" height="6"/>
+                        <ellipse cx="200" cy="262" rx="52" ry="12" fill="url(#rbDark)"/>
+
+                        <!-- braço articulado: ombro → cotovelo → punho -->
+                        <g transform="translate(200 246)">
+                            <g>
+                                <animateTransform class="rb-anim" attributeName="transform" type="rotate" values="-5;5;-5" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+                                <rect x="-21" y="-140" width="42" height="152" rx="21" fill="url(#rbMetal)" transform="rotate(18)"/>
+                                <g transform="translate(40 -124)">
+                                    <g>
+                                        <animateTransform class="rb-anim" attributeName="transform" type="rotate" values="6;-7;6" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+                                        <rect x="-50" y="-21" width="46" height="42" rx="13" fill="url(#rbDark)"/>
+                                        <rect x="-16" y="-17" width="152" height="34" rx="17" fill="url(#rbMetal)" transform="rotate(10)"/>
+                                        <g transform="translate(128 22.6)">
+                                            <g>
+                                                <animateTransform class="rb-anim" attributeName="transform" type="rotate" values="-8;10;-8" dur="7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+                                                <rect x="-10" y="-4" width="20" height="56" rx="10" fill="url(#rbMetal)"/>
+                                                <rect x="-6" y="48" width="12" height="18" rx="4" fill="url(#rbDark)"/>
+                                                <circle class="spark" cy="72" r="18" fill="url(#rbSpark)"/>
+                                                <circle r="15" fill="url(#rbDark)"/>
+                                                <circle class="rb-accent" r="5.5"/>
+                                            </g>
+                                        </g>
+                                        <circle r="25" fill="url(#rbDark)"/>
+                                        <circle class="rb-accent" r="9"/>
+                                    </g>
+                                </g>
+                                <circle r="31" fill="url(#rbDark)"/>
+                                <circle class="rb-accent" r="11"/>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+
+                <ul class="xp-grid" data-stagger>
+                    <li class="reveal"><span class="sym sym-blue"><i class="fa-solid fa-display"></i></span><div><b>Aplicações desktop</b><span>.NET Framework, C#, XAML, WPF e WinUI.</span></div></li>
+                    <li class="reveal"><span class="sym sym-cyan"><i class="fa-solid fa-window-maximize"></i></span><div><b>Interfaces web</b><span>React e Node.js para gestão de processos.</span></div></li>
+                    <li class="reveal"><span class="sym sym-purple"><i class="fa-solid fa-plug"></i></span><div><b>APIs e integrações</b><span>Ferramentas integradas ao Siemens Process Simulate.</span></div></li>
+                    <li class="reveal"><span class="sym sym-orange"><i class="fa-solid fa-robot"></i></span><div><b>Automação e dados</b><span>Fluxos automatizados e análise de dados de robótica industrial.</span></div></li>
+                    <li class="reveal"><span class="sym sym-green"><i class="fa-solid fa-database"></i></span><div><b>Banco de dados</b><span>Integração com PostgreSQL e APIs REST.</span></div></li>
+                    <li class="reveal"><span class="sym sym-pink"><i class="fa-solid fa-code-branch"></i></span><div><b>DevOps e colaboração</b><span>Squads internacionais, Git e práticas de DevOps.</span></div></li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <!-- ============================ PROJETOS ============================ -->
+    <section class="section section-alt" id="projetos">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="eyebrow">Projetos</p>
+                <h2 class="title">Projetos em destaque.</h2>
+                <p class="lead">Sistemas reais, da gestão de engenharia à análise de código de robôs industriais.</p>
+            </header>
+
+            <div class="rail" id="projectRail" data-stagger>
+                <!-- 1 · Plataforma de Gestão -->
+                <article class="project reveal">
+                    <div class="project-art art-layers" aria-hidden="true">
+                        <div class="iso">
+                            <div class="iso-layer l-db" style="--z:0">
+                                <span class="iso-label">PostgreSQL</span>
+                                <span class="db-row"></span><span class="db-row"></span><span class="db-row"></span><span class="db-row"></span>
+                            </div>
+                            <div class="iso-layer l-api" style="--z:1">
+                                <span class="iso-label">API REST</span>
+                                <svg viewBox="0 0 100 74"><path d="M16 18 L82 24 L48 62 Z M16 18 L48 62"/><circle cx="16" cy="18" r="6"/><circle cx="82" cy="24" r="6"/><circle cx="48" cy="62" r="6"/></svg>
+                            </div>
+                            <div class="iso-layer l-ui" style="--z:2">
+                                <span class="ui-bar"></span>
+                                <span class="ui-kpi"></span><span class="ui-kpi"></span><span class="ui-kpi"></span>
+                                <span class="ui-chart"><i style="--h:40%"></i><i style="--h:62%"></i><i style="--h:48%"></i><i style="--h:80%"></i><i style="--h:66%"></i><i style="--h:92%"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-meta">Comau · Web App</p>
+                        <h3>Plataforma de Gestão de Projeto Mecânico</h3>
+                        <p>Gestão de projetos de engenharia mecânica com milestones e rastreamento de dispositivos em tempo real.</p>
+                        <div class="tags"><span>React</span><span>Node.js</span><span>PostgreSQL</span></div>
+                    </div>
+                    <button class="project-open" type="button" data-open="proj-gestao" aria-label="Ver detalhes: Plataforma de Gestão de Projeto Mecânico"><span class="plus" aria-hidden="true"></span></button>
+                </article>
+
+                <!-- 2 · WeldScanner -->
+                <article class="project reveal">
+                    <div class="project-art art-weld" aria-hidden="true">
+                        <div class="mini-win">
+                            <div class="mini-bar"><i></i><i></i><i></i><span>WeldScanner</span></div>
+                            <div class="mini-body">
+                                <svg class="car" viewBox="0 0 320 120">
+                                    <path class="car-body" d="M22,90 L22,74 C22,66 28,62 38,60 L80,54 C94,40 114,30 140,28 L192,28 C212,28 228,38 244,52 L286,58 C298,60 302,66 302,74 L302,88 C302,89 301,90 300,90 L266,90 A22,22 0 0 0 222,90 L106,90 A22,22 0 0 0 62,90 Z"/>
+                                    <path class="car-glass" d="M94,54 C106,42 120,36 140,35 L160,35 L160,54 Z"/>
+                                    <path class="car-glass" d="M168,35 L190,35 C206,35 218,42 230,54 L168,54 Z"/>
+                                    <path class="car-line" d="M30,70 L296,70"/>
+                                    <circle class="car-wheel" cx="84" cy="90" r="17"/><circle class="car-hub" cx="84" cy="90" r="6"/>
+                                    <circle class="car-wheel" cx="244" cy="90" r="17"/><circle class="car-hub" cx="244" cy="90" r="6"/>
+                                    <path class="car-path" d="M40,62 L80,56 L112,40 L150,31 L190,31 L226,42 L262,57 L292,64"/>
+                                    <circle class="wp" cx="40" cy="62" r="3.6" style="--d:0"/>
+                                    <circle class="wp" cx="80" cy="56" r="3.6" style="--d:1"/>
+                                    <circle class="wp" cx="112" cy="40" r="3.6" style="--d:2"/>
+                                    <circle class="wp" cx="150" cy="31" r="3.6" style="--d:3"/>
+                                    <circle class="wp" cx="190" cy="31" r="3.6" style="--d:4"/>
+                                    <circle class="wp" cx="226" cy="42" r="3.6" style="--d:5"/>
+                                    <circle class="wp" cx="262" cy="57" r="3.6" style="--d:6"/>
+                                    <circle class="wp" cx="292" cy="64" r="3.6" style="--d:7"/>
+                                </svg>
+                                <span class="scan"></span>
+                                <div class="mini-stats"><span><b>248</b> pontos</span><span class="ok"><i class="fa-solid fa-circle-check"></i> íntegro</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-meta">Comau · Desktop</p>
+                        <h3>WeldScanner</h3>
+                        <p>Análise e desconstrução completa de backups de código de robôs industriais.</p>
+                        <div class="tags"><span>WPF</span><span>C#</span><span>.NET</span></div>
+                    </div>
+                    <button class="project-open" type="button" data-open="proj-weld" aria-label="Ver detalhes: WeldScanner"><span class="plus" aria-hidden="true"></span></button>
+                </article>
+
+                <!-- 3 · Hapti Chat -->
+                <article class="project reveal">
+                    <div class="project-art art-hapti" aria-hidden="true">
+                        <span class="wave w1"></span><span class="wave w2"></span><span class="wave w3"></span>
+                        <div class="phone">
+                            <span class="island"></span>
+                            <div class="bubble in"><span class="morse"><i class="l"></i><i class="l"></i><i class="l"></i><em></em><i class="d"></i><i class="d"></i></span><small>OI</small></div>
+                            <div class="bubble out"><span class="morse"><i class="l"></i><i class="l"></i><i class="l"></i><em></em><i class="d"></i><i class="l"></i><i class="d"></i><i class="d"></i><em></em><i class="d"></i><i class="l"></i></span><small>OLA</small></div>
+                            <div class="bubble in typing"><i></i><i></i><i></i></div>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-meta">FEI · Acadêmico</p>
+                        <h3>Hapti Chat</h3>
+                        <p>Ensino de código Morse com feedback visual e háptico, direto no navegador.</p>
+                        <div class="tags"><span>React</span><span>Acessibilidade</span></div>
+                    </div>
+                    <button class="project-open" type="button" data-open="proj-hapti" aria-label="Ver detalhes: Hapti Chat"><span class="plus" aria-hidden="true"></span></button>
+                </article>
+            </div>
+
+            <div class="rail-nav" data-rail="projectRail">
+                <button class="icon-btn rail-btn" type="button" data-dir="-1" aria-label="Projeto anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="icon-btn rail-btn" type="button" data-dir="1" aria-label="Próximo projeto"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================ SKILLS ============================ -->
+    <section class="section" id="skills">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="eyebrow">Skills</p>
+                <h2 class="title">Ferramentas certas<br/>para cada camada.</h2>
+            </header>
+
+            <div class="library" data-stagger>
+                <article class="lib-group reveal">
+                    <h3>Web &amp; Front-End</h3>
+                    <ul class="apps">
+                        <li><span class="app"><img src="assets/img/html.webp" width="139" height="192" alt="" loading="lazy" decoding="async"/></span>HTML5</li>
+                        <li><span class="app"><img src="assets/img/css.webp" width="141" height="192" alt="" loading="lazy" decoding="async"/></span>CSS3</li>
+                        <li><span class="app"><img src="assets/img/js.webp" width="192" height="183" alt="" loading="lazy" decoding="async"/></span>JavaScript</li>
+                        <li><span class="app"><img src="assets/img/react.webp" width="192" height="174" alt="" loading="lazy" decoding="async"/></span>React</li>
+                    </ul>
+                </article>
+                <article class="lib-group reveal">
+                    <h3>Back-End &amp; Dados</h3>
+                    <ul class="apps">
+                        <li><span class="app app-glyph g-node"><i class="fa-brands fa-node-js"></i></span>Node.js</li>
+                        <li><span class="app app-glyph g-pg"><i class="fa-solid fa-database"></i></span>PostgreSQL</li>
+                        <li><span class="app"><img src="assets/img/python.webp" width="192" height="187" alt="" loading="lazy" decoding="async"/></span>Python</li>
+                        <li><span class="app app-glyph g-git"><i class="fa-brands fa-git-alt"></i></span>Git</li>
+                    </ul>
+                </article>
+                <article class="lib-group reveal">
+                    <h3>Desktop &amp; Linguagens</h3>
+                    <ul class="apps">
+                        <li><span class="app"><img src="assets/img/csharp.webp" width="174" height="192" alt="" loading="lazy" decoding="async"/></span>C#</li>
+                        <li><span class="app app-glyph g-net"><b>.NET</b></span>.NET</li>
+                        <li><span class="app"><img src="assets/img/wpf.webp" width="170" height="192" alt="" loading="lazy" decoding="async"/></span>WPF</li>
+                        <li><span class="app"><img src="assets/img/java.webp" width="141" height="192" alt="" loading="lazy" decoding="async"/></span>Java</li>
+                        <li><span class="app"><img src="assets/img/c.webp" width="171" height="192" alt="" loading="lazy" decoding="async"/></span>C</li>
+                    </ul>
+                </article>
+                <article class="lib-group reveal">
+                    <h3>Indústria 4.0</h3>
+                    <ul class="apps">
+                        <li><span class="app"><img src="assets/img/process.webp" width="192" height="190" alt="" loading="lazy" decoding="async"/></span>Process Simulate</li>
+                        <li><span class="app app-glyph g-robot"><i class="fa-solid fa-robot"></i></span>Robótica</li>
+                        <li><span class="app app-glyph g-dm"><i class="fa-solid fa-industry"></i></span>Digital Mfg.</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================ SERVIÇOS ============================ -->
+    <section class="section section-alt" id="servicos">
+        <div class="container">
+            <header class="section-head reveal">
+                <p class="eyebrow">Serviços freelance</p>
+                <h2 class="title">Da ideia ao sistema<br/>rodando.</h2>
+                <p class="lead">Soluções sob demanda, da concepção à entrega, com código limpo, boas práticas e foco em resultados mensuráveis.</p>
+            </header>
+
+            <div class="services" data-stagger>
+                <article class="service reveal tilt">
+                    <span class="glyph glyph-blue"><i class="fa-solid fa-code"></i></span>
+                    <h3>Front-End &amp; Web Apps</h3>
                     <p>Interfaces modernas, responsivas e performáticas. Landing pages, dashboards e aplicações web completas.</p>
                     <div class="tags"><span>React</span><span>JavaScript</span><span>HTML/CSS</span></div>
-                </div>
-                <div class="service-card tilt reveal">
-                    <div class="service-icon"><i class="fa-solid fa-desktop"></i></div>
+                </article>
+                <article class="service reveal tilt">
+                    <span class="glyph glyph-purple"><i class="fa-solid fa-display"></i></span>
                     <h3>Aplicações Desktop</h3>
                     <p>Softwares robustos para Windows com .NET, C#, WPF e XAML — ideais para engenharia, indústria e automação.</p>
                     <div class="tags"><span>WPF</span><span>C#</span><span>.NET</span></div>
-                </div>
-                <div class="service-card tilt reveal">
-                    <div class="service-icon"><i class="fa-solid fa-server"></i></div>
-                    <h3>APIs & Back-End</h3>
+                </article>
+                <article class="service reveal tilt">
+                    <span class="glyph glyph-green"><i class="fa-solid fa-server"></i></span>
+                    <h3>APIs &amp; Back-End</h3>
                     <p>APIs REST, integrações entre sistemas e modelagem de dados com Node.js e PostgreSQL.</p>
                     <div class="tags"><span>Node.js</span><span>PostgreSQL</span><span>REST</span></div>
-                </div>
-                <div class="service-card tilt reveal">
-                    <div class="service-icon"><i class="fa-solid fa-robot"></i></div>
-                    <h3>Automação & Dados</h3>
+                </article>
+                <article class="service reveal tilt">
+                    <span class="glyph glyph-orange"><i class="fa-solid fa-robot"></i></span>
+                    <h3>Automação &amp; Dados</h3>
                     <p>Scripts de automação, extração e análise de dados e integração com ferramentas industriais.</p>
                     <div class="tags"><span>Python</span><span>Process Simulate</span><span>ETL</span></div>
-                </div>
+                </article>
             </div>
-            <div class="showcase reveal" id="showcase">
+
+            <!-- Como funciona -->
+            <ol class="steps" data-stagger>
+                <li class="reveal"><span class="step-n">1</span><b>Conversa</b><span>Entendemos o problema, o público e os objetivos do projeto.</span></li>
+                <li class="reveal"><span class="step-n">2</span><b>Proposta</b><span>Escopo, prazo e tecnologias definidos com clareza.</span></li>
+                <li class="reveal"><span class="step-n">3</span><b>Desenvolvimento</b><span>Entregas incrementais para você acompanhar a evolução.</span></li>
+                <li class="reveal"><span class="step-n">4</span><b>Entrega</b><span>Sistema testado, publicado e pronto para uso.</span></li>
+            </ol>
+
+            <!-- Demo ao vivo -->
+            <div class="demo-head reveal">
+                <h3 class="subtitle">Veja o código virar produto.</h3>
+                <p>Do editor ao sistema rodando — web, desktop e API.</p>
+            </div>
+            <div class="showcase" id="showcase" data-depth>
                 <div class="window">
                     <div class="window-bar">
                         <span class="dots"><i></i><i></i><i></i></span>
@@ -148,196 +558,49 @@
                 </div>
             </div>
 
-            <div class="services-cta reveal">
-                <h3>Precisa de um sistema sob medida?</h3>
-                <p>Da concepção à entrega, desenvolvo a solução que o seu projeto exige.</p>
+            <div class="cta-band reveal">
+                <div>
+                    <h3>Precisa de um sistema sob medida?</h3>
+                    <p>Da concepção à entrega, desenvolvo a solução que o seu projeto exige.</p>
+                </div>
                 <div class="cta-actions">
-                    <a href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noreferrer" class="btn whatsapp"><i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp</a>
-                    <a href="mailto:heron.souza56@gmail.com" class="btn ghost"><i class="fa-solid fa-envelope"></i> Enviar e-mail</a>
+                    <a href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp</a>
+                    <a href="mailto:heron.souza56@gmail.com" class="btn btn-glass"><i class="fa-solid fa-envelope"></i> Enviar e-mail</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===================== FORMAÇÃO ===================== -->
-    <section id="formacao" class="section">
+    <!-- ============================ CONTATO ============================ -->
+    <section class="section contact" id="contato">
         <div class="container">
-            <span class="eyebrow">Base acadêmica</span>
-            <h2 class="section-title">Formação</h2>
-            <div class="formacao-grid">
-                <a class="formacao-item hover-up reveal" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer">
-                    <img src="Fei_Logo.png" alt="FEI" loading="lazy" decoding="async"/>
-                    <h3>Ciência da Computação</h3>
-                    <p>Centro Universitário FEI • 2023 → 2027</p>
+            <header class="section-head section-head-center reveal">
+                <p class="eyebrow">Contato</p>
+                <h2 class="title">Vamos construir<br/>algo juntos.</h2>
+                <p class="lead">Para propostas, oportunidades ou parcerias, fale comigo pelo canal que preferir. Retorno todas as mensagens.</p>
+            </header>
+
+            <div class="contact-grid" data-stagger>
+                <a class="contact-tile reveal" href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noreferrer">
+                    <span class="glyph glyph-wa"><i class="fa-brands fa-whatsapp"></i></span>
+                    <b>WhatsApp</b><span>Resposta rápida</span>
+                    <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
                 </a>
-                <a class="formacao-item hover-up reveal" href="https://cert.efset.org/pt/J7Sgxw" target="_blank" rel="noreferrer">
-                    <img src="Ef_Set_Logo.png" alt="EF SET" loading="lazy" decoding="async"/>
-                    <h3>Inglês — Certificação EF SET</h3>
-                    <p>Conversação e escrita com fluência</p>
+                <a class="contact-tile reveal" href="mailto:heron.souza56@gmail.com">
+                    <span class="glyph glyph-blue"><i class="fa-solid fa-envelope"></i></span>
+                    <b>E-mail</b><span>heron.souza56@gmail.com</span>
+                    <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
                 </a>
-                <div class="formacao-item hover-up reveal">
-                    <img src="Fund_Bradesco_Logo.png" alt="Fundação Bradesco" loading="lazy" decoding="async"/>
-                    <h3>Cursos Livres</h3>
-                    <p>TI, Lógica e Gestão • Escola Virtual</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== EXPERIÊNCIA ===================== -->
-    <section id="experiencia" class="section">
-        <div class="container">
-            <span class="eyebrow">Trajetória</span>
-            <h2 class="section-title">Experiência</h2>
-            <div class="card experiencia-card reveal">
-                <img src="Comau_Logo.png" alt="Comau" class="empresa-logo" loading="lazy" decoding="async"/>
-                <h3>Estagiário de Desenvolvimento de Software — Comau (Engenharia)</h3>
-                <span class="date">abr 2025 – presente</span>
-                <p>Crio e evoluo soluções internas para engenharia e operação, atuando diretamente no <strong>ambiente de desenvolvimento</strong> com foco em ferramentas robustas e escaláveis:</p>
-                <ul class="lista-exp">
-                    <li>Desenvolvimento de aplicações desktop com <strong>.NET Framework</strong>, <strong>C#</strong>, <strong>XAML</strong>, <strong>WPF</strong> e <strong>WinUI</strong>.</li>
-                    <li>Criação de interfaces web modernas com <strong>React</strong> e <strong>Node.js</strong> para gestão de processos.</li>
-                    <li>Desenvolvimento de <strong>APIs</strong> e ferramentas integradas ao <strong>Siemens Process Simulate</strong>.</li>
-                    <li>Automação de fluxos de trabalho e extração/análise de dados de robótica industrial.</li>
-                    <li>Integração de soluções com bancos de dados (<strong>PostgreSQL</strong>) e APIs REST.</li>
-                    <li>Colaboração em squads internacionais com práticas de <strong>DevOps</strong> e versionamento (Git).</li>
-                </ul>
-                <p class="nota-exp">Utilizo <strong>Visual Studio Professional 2022</strong> e ferramentas modernas para entregar soluções de alta qualidade.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== SKILLS ===================== -->
-    <section id="skills" class="section">
-        <div class="container">
-            <span class="eyebrow">Ferramentas</span>
-            <h2 class="section-title">Skills &amp; Ferramentas</h2>
-            <div class="skills-grid">
-                <div class="skill-item reveal"><img src="HTML_Logo.png" alt="Logo HTML5" loading="lazy" decoding="async"><span>HTML5</span></div>
-                <div class="skill-item reveal"><img src="CSS_Logo.png" alt="Logo CSS3" loading="lazy" decoding="async"><span>CSS3</span></div>
-                <div class="skill-item reveal"><img src="JS_Logo.png" alt="Logo JavaScript" loading="lazy" decoding="async"><span>JavaScript</span></div>
-                <div class="skill-item reveal"><img src="React_Logo.png" alt="Logo React" loading="lazy" decoding="async"><span>React</span></div>
-                <div class="skill-item reveal"><img src="Python_Logo.png" alt="Logo Python" loading="lazy" decoding="async"><span>Python</span></div>
-                <div class="skill-item reveal"><img src="Java_Logo.png" alt="Logo Java" loading="lazy" decoding="async"><span>Java</span></div>
-                <div class="skill-item reveal"><img src="C_Logo.png" alt="Logo C" loading="lazy" decoding="async"><span>C</span></div>
-                <div class="skill-item reveal"><img src="Csharp_Logo.png" alt="Logo C#" loading="lazy" decoding="async"><span>C#</span></div>
-                <div class="skill-item reveal"><img src="Wpf_Logo (2).png" alt="Logo WPF" loading="lazy" decoding="async"><span>WPF</span></div>
-                <div class="skill-item reveal"><img src="Process_Logo.png" alt="Logo Process Simulate" loading="lazy" decoding="async"><span>Process Simulate</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== PROJETOS ===================== -->
-    <section id="projetos" class="section">
-        <div class="container">
-            <span class="eyebrow">Portfólio</span>
-            <h2 class="section-title">Projetos em Destaque</h2>
-            <div class="grid-projects">
-                <article class="project-card reveal">
-                    <div class="project-header">
-                        <img src="Comau_Logo.png" alt="Comau" class="project-logo" loading="lazy" decoding="async"/>
-                        <h3>Plataforma de Gestão de Projeto Mecânico</h3>
-                    </div>
-                    <p>Sistema completo para gerenciamento de projetos de engenharia mecânica, controle de milestones e rastreamento de dispositivos em tempo real.</p>
-                    <button class="btn secondary toggle-details">Ver mais</button>
-                    <div class="project-details">
-                        <p><strong>Funcionalidades principais:</strong></p>
-                        <ul>
-                            <li>Gerenciamento detalhado de <strong>milestones</strong> e cronogramas de projeto.</li>
-                            <li>Cadastro e controle granular de <strong>dispositivos mecânicos</strong> com informações técnicas.</li>
-                            <li>Sistema de <strong>controle de status</strong> a nível de dispositivo (aprovado, em revisão, pendente, etc.).</li>
-                            <li>Dashboard interativo com <strong>métricas em tempo real</strong> e visualização de progresso.</li>
-                            <li>Sistema de notificações e alertas para prazos e mudanças de status.</li>
-                            <li>Geração de relatórios customizados e exportação de dados.</li>
-                            <li>Controle de versões e histórico de alterações de cada dispositivo.</li>
-                        </ul>
-                        <p><strong>Stack tecnológica:</strong> React + Vite, Node.js, PostgreSQL, REST APIs.</p>
-                    </div>
-                </article>
-
-                <article class="project-card reveal">
-                    <div class="project-header">
-                        <img src="Comau_Logo.png" alt="Comau" class="project-logo" loading="lazy" decoding="async"/>
-                        <h3>WeldScanner</h3>
-                    </div>
-                    <p>Ferramenta desktop de análise e desconstrução completa de backups de códigos de robôs industriais.</p>
-                    <button class="btn secondary toggle-details">Ver mais</button>
-                    <div class="project-details">
-                        <p><strong>Funcionalidades principais:</strong></p>
-                        <ul>
-                            <li><strong>Parsing inteligente</strong> de backups de código de robôs (múltiplos formatos).</li>
-                            <li>Extração e <strong>desconstrução completa</strong> de pontos de solda, trajetórias e parâmetros.</li>
-                            <li>Visualização estruturada de dados com interface intuitiva em <strong>WPF</strong>.</li>
-                            <li>Validação automática de integridade e detecção de inconsistências.</li>
-                            <li>Exportação para <strong>CSV/Excel</strong> e integração com sistemas internos.</li>
-                            <li>Sistema de busca avançada e filtros customizáveis.</li>
-                        </ul>
-                        <p><strong>Stack tecnológica:</strong> WPF, C#, XAML, .NET Framework, Visual Studio Professional 2022.</p>
-                        <a href="https://github.com/Herondsx/App_Repository_Heronds" target="_blank" rel="noreferrer" class="btn primary" style="margin-top:.8rem">
-                            <i class="fa-brands fa-github"></i> Ver no GitHub
-                        </a>
-                    </div>
-                </article>
-
-                <article class="project-card reveal">
-                    <div class="project-header">
-                        <img src="Fei_Logo.png" alt="FEI" class="project-logo" loading="lazy" decoding="async"/>
-                        <h3>Hapti Chat</h3>
-                    </div>
-                    <p>Aplicação web interativa para ensino de código Morse através de feedback visual e háptico.</p>
-                    <button class="btn secondary toggle-details">Ver mais</button>
-                    <div class="project-details">
-                        <p><strong>Funcionalidades principais:</strong></p>
-                        <ul>
-                            <li>Interface interativa para <strong>aprendizado de código Morse</strong> de forma intuitiva.</li>
-                            <li>Sistema de tradução em tempo real (texto ↔ Morse).</li>
-                            <li>Feedback visual com animações e indicadores de progresso.</li>
-                            <li>Exercícios práticos e testes de conhecimento.</li>
-                            <li>Design responsivo e acessível para uso em diversos dispositivos.</li>
-                            <li>Sistema de conquistas e acompanhamento de progresso do usuário.</li>
-                        </ul>
-                        <p><strong>Stack tecnológica:</strong> React (projeto acadêmico desenvolvido na FEI).</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== INTERESSES ===================== -->
-    <section id="interesses" class="section">
-        <div class="container">
-            <span class="eyebrow">Além do código</span>
-            <h2 class="section-title">Interesses</h2>
-            <div class="chips">
-                <span class="chip reveal">Automação & Robótica</span>
-                <span class="chip reveal">Arquitetura de Software Limpo</span>
-                <span class="chip reveal">Design de Interfaces</span>
-                <span class="chip reveal">Indústria Automotiva</span>
-                <span class="chip reveal">Mercado de Automóveis</span>
-                <span class="chip reveal">Investimentos</span>
-                <span class="chip reveal">Mercado de Computadores</span>
-                <span class="chip reveal">Vendas de PCs & Periféricos</span>
-                <span class="chip reveal">Arquitetura & Estudo de Hardware</span>
-                <span class="chip reveal">Tendências de Componentes</span>
-                <span class="chip reveal">Benchmarking & Otimização</span>
-                <span class="chip reveal">Jogar Jogos</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== CONTATO ===================== -->
-    <section id="contato" class="section">
-        <div class="container">
-            <div class="contato-card reveal">
-                <span class="eyebrow">Contato</span>
-                <h2>Disponível para novos projetos</h2>
-                <p>Para propostas, oportunidades ou parcerias, entre em contato pelos canais abaixo. Retorno todas as mensagens.</p>
-                <div class="social-links">
-                    <a class="btn whatsapp" href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-                    <a class="btn primary" href="mailto:heron.souza56@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
-                    <a class="btn secondary" href="https://www.linkedin.com/in/heron-de-souza-a0511b323/" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                    <a class="btn secondary" href="https://github.com/Herondsx" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub</a>
-                </div>
+                <a class="contact-tile reveal" href="https://www.linkedin.com/in/heron-de-souza-a0511b323/" target="_blank" rel="noreferrer">
+                    <span class="glyph glyph-li"><i class="fa-brands fa-linkedin-in"></i></span>
+                    <b>LinkedIn</b><span>Heron de Souza</span>
+                    <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                </a>
+                <a class="contact-tile reveal" href="https://github.com/Herondsx" target="_blank" rel="noreferrer">
+                    <span class="glyph glyph-gh"><i class="fa-brands fa-github"></i></span>
+                    <b>GitHub</b><span>@Herondsx</span>
+                    <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                </a>
             </div>
         </div>
     </section>
@@ -345,15 +608,93 @@
 
 <footer class="footer">
     <div class="container">
-        <p>&copy; 2026 Heron de Souza. Todos os direitos reservados.</p>
+        <div class="footer-top">
+            <a class="brand" href="#inicio">Heron<span>.</span></a>
+            <nav class="footer-links" aria-label="Rodapé">
+                <a href="#sobre">Sobre</a>
+                <a href="#experiencia">Experiência</a>
+                <a href="#projetos">Projetos</a>
+                <a href="#skills">Skills</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year">2026</span> Heron de Souza. Todos os direitos reservados.</p>
+            <p>Feito com HTML, CSS, JavaScript e Three.js.</p>
+        </div>
     </div>
 </footer>
 
+<!-- ============================ DETALHES DOS PROJETOS ============================ -->
+<dialog class="sheet" id="proj-gestao" aria-labelledby="proj-gestao-t">
+    <div class="sheet-inner">
+        <button class="icon-btn sheet-close" type="button" data-close aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+        <p class="sheet-meta">Comau · Web App</p>
+        <h3 class="sheet-title" id="proj-gestao-t">Plataforma de Gestão de Projeto Mecânico</h3>
+        <p class="sheet-lead">Sistema completo para gerenciamento de projetos de engenharia mecânica, controle de milestones e rastreamento de dispositivos em tempo real.</p>
+        <h4>Funcionalidades principais</h4>
+        <ul class="checks">
+            <li>Gerenciamento detalhado de <strong>milestones</strong> e cronogramas de projeto.</li>
+            <li>Cadastro e controle granular de <strong>dispositivos mecânicos</strong> com informações técnicas.</li>
+            <li>Sistema de <strong>controle de status</strong> a nível de dispositivo (aprovado, em revisão, pendente, etc.).</li>
+            <li>Dashboard interativo com <strong>métricas em tempo real</strong> e visualização de progresso.</li>
+            <li>Sistema de notificações e alertas para prazos e mudanças de status.</li>
+            <li>Geração de relatórios customizados e exportação de dados.</li>
+            <li>Controle de versões e histórico de alterações de cada dispositivo.</li>
+        </ul>
+        <h4>Stack tecnológica</h4>
+        <div class="tags tags-lg"><span>React + Vite</span><span>Node.js</span><span>PostgreSQL</span><span>REST APIs</span></div>
+    </div>
+</dialog>
+
+<dialog class="sheet" id="proj-weld" aria-labelledby="proj-weld-t">
+    <div class="sheet-inner">
+        <button class="icon-btn sheet-close" type="button" data-close aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+        <p class="sheet-meta">Comau · Desktop</p>
+        <h3 class="sheet-title" id="proj-weld-t">WeldScanner</h3>
+        <p class="sheet-lead">Ferramenta desktop de análise e desconstrução completa de backups de códigos de robôs industriais.</p>
+        <h4>Funcionalidades principais</h4>
+        <ul class="checks">
+            <li><strong>Parsing inteligente</strong> de backups de código de robôs (múltiplos formatos).</li>
+            <li>Extração e <strong>desconstrução completa</strong> de pontos de solda, trajetórias e parâmetros.</li>
+            <li>Visualização estruturada de dados com interface intuitiva em <strong>WPF</strong>.</li>
+            <li>Validação automática de integridade e detecção de inconsistências.</li>
+            <li>Exportação para <strong>CSV/Excel</strong> e integração com sistemas internos.</li>
+            <li>Sistema de busca avançada e filtros customizáveis.</li>
+        </ul>
+        <h4>Stack tecnológica</h4>
+        <div class="tags tags-lg"><span>WPF</span><span>C#</span><span>XAML</span><span>.NET Framework</span><span>Visual Studio 2022</span></div>
+        <a href="https://github.com/Herondsx/App_Repository_Heronds" target="_blank" rel="noreferrer" class="btn btn-primary sheet-btn"><i class="fa-brands fa-github"></i> Ver no GitHub</a>
+    </div>
+</dialog>
+
+<dialog class="sheet" id="proj-hapti" aria-labelledby="proj-hapti-t">
+    <div class="sheet-inner">
+        <button class="icon-btn sheet-close" type="button" data-close aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+        <p class="sheet-meta">FEI · Projeto acadêmico</p>
+        <h3 class="sheet-title" id="proj-hapti-t">Hapti Chat</h3>
+        <p class="sheet-lead">Aplicação web interativa para ensino de código Morse através de feedback visual e háptico.</p>
+        <h4>Funcionalidades principais</h4>
+        <ul class="checks">
+            <li>Interface interativa para <strong>aprendizado de código Morse</strong> de forma intuitiva.</li>
+            <li>Sistema de tradução em tempo real (texto ↔ Morse).</li>
+            <li>Feedback visual com animações e indicadores de progresso.</li>
+            <li>Exercícios práticos e testes de conhecimento.</li>
+            <li>Design responsivo e acessível para uso em diversos dispositivos.</li>
+            <li>Sistema de conquistas e acompanhamento de progresso do usuário.</li>
+        </ul>
+        <h4>Stack tecnológica</h4>
+        <div class="tags tags-lg"><span>React</span><span>Projeto acadêmico · FEI</span></div>
+    </div>
+</dialog>
+
+<!-- ============================ FLUTUANTES ============================ -->
+<a href="#inicio" id="btnTop" class="float-btn float-top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
 <a href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto."
-   class="wa-float" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" title="Falar no WhatsApp">
+   class="float-btn float-wa" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
-<a href="#sobre" id="btnTop" class="btn-top" title="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
 
 <script type="module" src="three-scene.js"></script>
 <script src="script.js" defer></script>

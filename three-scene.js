@@ -1,278 +1,479 @@
 /* =========================================================================
-   three-scene.js · Cena 3D interativa do hero (WebGL / Three.js)
-   "Crystalline Core" — núcleo cristalino deformável + campo de partículas,
-   com parallax de mouse e resposta ao scroll. Inspirado em igloo.inc.
-   Totalmente procedural (sem assets externos), servido via CDN ESM.
+   three-scene.js · Cena 3D do hero (WebGL / Three.js)
+   Um chip no estilo "Apple Silicon" com as iniciais HdS, flutuando sobre
+   uma placa com trilhas de circuito por onde correm pulsos de dados —
+   metáfora para integração de sistemas. Materiais PBR com ambiente de
+   estúdio procedural, parallax de ponteiro e câmera guiada pelo scroll.
+   Totalmente procedural (sem assets externos).
    ========================================================================= */
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
 
-(() => {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
+const canvas = document.getElementById('hero-canvas');
+const hero = document.getElementById('inicio');
 
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+if (canvas && hero) init();
 
-  // ---- Renderer (com fallback se o WebGL não existir) --------------------
+function init() {
+  const root = document.documentElement;
+  const copy = hero.querySelector('.hero-copy');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const small = matchMedia('(max-width: 760px)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // ---- Renderer (fallback CSS se o WebGL não existir) ---------------------
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: !isMobile,
-      alpha: true,
-      powerPreference: 'high-performance'
-    });
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   } catch (e) {
-    canvas.style.display = 'none';
-    document.documentElement.classList.add('no-webgl');
+    root.classList.add('no-webgl');
     return;
   }
-
-  const sizeEl = canvas.parentElement || canvas;
-  let width = sizeEl.clientWidth || window.innerWidth;
-  let height = sizeEl.clientHeight || window.innerHeight;
-
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(width, height, false);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.6 : 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+  renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-  camera.position.set(0, 0, 5.4);
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 80);
+  scene.environment = studioEnvironment(renderer);
 
-  // ---- GLSL: simplex noise 3D (Ashima Arts / Stefan Gustavson) -----------
-  const NOISE = /* glsl */`
-    vec3 mod289(vec3 x){return x - floor(x*(1.0/289.0))*289.0;}
-    vec4 mod289(vec4 x){return x - floor(x*(1.0/289.0))*289.0;}
-    vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}
-    vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314*r;}
-    float snoise(vec3 v){
-      const vec2 C = vec2(1.0/6.0, 1.0/3.0);
-      const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-      vec3 i  = floor(v + dot(v, C.yyy));
-      vec3 x0 = v - i + dot(i, C.xxx);
-      vec3 g = step(x0.yzx, x0.xyz);
-      vec3 l = 1.0 - g;
-      vec3 i1 = min(g.xyz, l.zxy);
-      vec3 i2 = max(g.xyz, l.zxy);
-      vec3 x1 = x0 - i1 + C.xxx;
-      vec3 x2 = x0 - i2 + C.yyy;
-      vec3 x3 = x0 - D.yyy;
-      i = mod289(i);
-      vec4 p = permute(permute(permute(
-                i.z + vec4(0.0, i1.z, i2.z, 1.0))
-              + i.y + vec4(0.0, i1.y, i2.y, 1.0))
-              + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-      float n_ = 0.142857142857;
-      vec3 ns = n_ * D.wyz - D.xzx;
-      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-      vec4 x_ = floor(j * ns.z);
-      vec4 y_ = floor(j - 7.0 * x_);
-      vec4 x = x_ * ns.x + ns.yyyy;
-      vec4 y = y_ * ns.x + ns.yyyy;
-      vec4 h = 1.0 - abs(x) - abs(y);
-      vec4 b0 = vec4(x.xy, y.xy);
-      vec4 b1 = vec4(x.zw, y.zw);
-      vec4 s0 = floor(b0)*2.0 + 1.0;
-      vec4 s1 = floor(b1)*2.0 + 1.0;
-      vec4 sh = -step(h, vec4(0.0));
-      vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
-      vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
-      vec3 p0 = vec3(a0.xy, h.x);
-      vec3 p1 = vec3(a0.zw, h.y);
-      vec3 p2 = vec3(a1.xy, h.z);
-      vec3 p3 = vec3(a1.zw, h.w);
-      vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
-      p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-      vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-      m = m * m;
-      return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
-    }
-  `;
+  const key = new THREE.DirectionalLight(0xffffff, 2.4);
+  key.position.set(4, 7, 5);
+  const rim = new THREE.DirectionalLight(0x8ab4ff, 1.6);
+  rim.position.set(-6, 3, -4);
+  scene.add(key, rim, new THREE.AmbientLight(0xffffff, 0.15));
 
-  // ---- Núcleo cristalino (icosaedro deformável + fresnel gelado) ---------
-  const coreUniforms = {
-    uTime:      { value: 0 },
-    uAmp:       { value: 0.0 },
-    uColorDeep: { value: new THREE.Color('#0b1f4d') },
-    uColorRim:  { value: new THREE.Color('#9be7ff') },
-    uColorGlow: { value: new THREE.Color('#4d8bff') }
-  };
+  // ---- Objetos -----------------------------------------------------------
+  const maxAniso = renderer.capabilities.getMaxAnisotropy();
+  const chip = buildChip(maxAniso);
+  scene.add(chip);
 
-  const coreMaterial = new THREE.ShaderMaterial({
-    uniforms: coreUniforms,
-    transparent: true,
-    vertexShader: /* glsl */`
-      uniform float uTime;
-      uniform float uAmp;
-      varying float vNoise;
-      varying vec3 vNormal;
-      varying vec3 vView;
-      ${NOISE}
-      void main(){
-        float n  = snoise(normal * 1.4 + uTime * 0.25);
-        float n2 = snoise(normal * 3.0 - uTime * 0.18) * 0.5;
-        float disp = (n + n2) * uAmp;
-        vec3 newPos = position + normal * disp;
-        vNoise = n;
-        vec4 mv = modelViewMatrix * vec4(newPos, 1.0);
-        vNormal = normalize(normalMatrix * normal);
-        vView = normalize(-mv.xyz);
-        gl_Position = projectionMatrix * mv;
-      }
-    `,
-    fragmentShader: /* glsl */`
-      uniform vec3 uColorDeep;
-      uniform vec3 uColorRim;
-      uniform vec3 uColorGlow;
-      varying float vNoise;
-      varying vec3 vNormal;
-      varying vec3 vView;
-      void main(){
-        float fres = pow(1.0 - clamp(dot(vNormal, vView), 0.0, 1.0), 2.4);
-        vec3 base = mix(uColorDeep, uColorGlow, smoothstep(-0.8, 0.9, vNoise));
-        vec3 color = mix(base, uColorRim, fres);
-        gl_FragColor = vec4(color, 0.92);
-      }
-    `
-  });
+  const shared = { uTime: { value: 0 }, uReveal: { value: 0 } };
+  const traces = buildTraces(small ? 28 : 52, shared);
+  scene.add(traces);
+  scene.add(buildBoard());
 
-  const detail = isMobile ? 8 : 18;
-  const coreGeo = new THREE.IcosahedronGeometry(1.25, detail);
-  const core = new THREE.Mesh(coreGeo, coreMaterial);
+  const glow = new THREE.Mesh(
+    new THREE.PlaneGeometry(7.5, 7.5),
+    new THREE.MeshBasicMaterial({
+      map: radialTexture([[0, 'rgba(70,140,255,0.55)'], [0.35, 'rgba(120,90,255,0.22)'], [1, 'rgba(0,0,0,0)']]),
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false
+    })
+  );
+  glow.rotation.x = -Math.PI / 2;
+  glow.position.y = 0.003;
+  scene.add(glow);
 
-  // Wireframe externo (casca de cristal)
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: new THREE.Color('#7fd4ff'),
-    wireframe: true,
-    transparent: true,
-    opacity: 0.10
-  });
-  const wire = new THREE.Mesh(new THREE.IcosahedronGeometry(1.42, isMobile ? 1 : 2), wireMat);
+  // ---- Layout: posiciona o chip na faixa livre abaixo do texto -----------
+  let baseDist = 9;
+  function layout() {
+    const w = hero.clientWidth || innerWidth;
+    const h = hero.clientHeight || innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
 
-  const coreGroup = new THREE.Group();
-  coreGroup.add(core, wire);
-  scene.add(coreGroup);
+    const copyBottom = copy ? copy.offsetTop + copy.offsetHeight : h * 0.5;
+    const top = Math.min(copyBottom + 12, h * 0.8);
+    const bottom = h - Math.max(40, h * 0.05);
+    const band = Math.max(bottom - top, h * 0.18);
+    const centerY = top + band * 0.5;
 
-  // ---- Campo de partículas (glow aditivo) --------------------------------
-  function makeSprite() {
-    const c = document.createElement('canvas');
-    c.width = c.height = 64;
-    const ctx = c.getContext('2d');
-    const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, 'rgba(255,255,255,1)');
-    g.addColorStop(0.25, 'rgba(160,220,255,0.85)');
-    g.addColorStop(1, 'rgba(80,140,255,0)');
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, 64, 64);
-    const tex = new THREE.CanvasTexture(c);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    return tex;
-  }
+    const px = Math.min(band * 1.55, w * (small ? 0.66 : 0.5), 470);
+    const tanHalf = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    baseDist = (2.4 * h) / (2 * px * tanHalf);
 
-  const COUNT = isMobile ? 850 : 2200;
-  const positions = new Float32Array(COUNT * 3);
-  for (let i = 0; i < COUNT; i++) {
-    const r = 2.3 + Math.random() * 3.4;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    positions[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = r * Math.cos(phi);
-  }
-  const pGeo = new THREE.BufferGeometry();
-  pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const pMat = new THREE.PointsMaterial({
-    size: isMobile ? 0.05 : 0.045,
-    map: makeSprite(),
-    transparent: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    color: new THREE.Color('#bfe4ff'),
-    opacity: 0.9
-  });
-  const particles = new THREE.Points(pGeo, pMat);
-  scene.add(particles);
-
-  // ---- Interação: mouse + scroll -----------------------------------------
-  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-  window.addEventListener('pointermove', (e) => {
-    pointer.tx = (e.clientX / window.innerWidth) * 2 - 1;
-    pointer.ty = (e.clientY / window.innerHeight) * 2 - 1;
-  }, { passive: true });
-
-  let scrollFactor = 0; // 0 (topo) → 1 (fim do hero)
-  function updateScroll() {
-    const h = sizeEl.getBoundingClientRect();
-    const total = (h.height || window.innerHeight);
-    scrollFactor = Math.min(Math.max(-h.top / total, 0), 1);
-  }
-  window.addEventListener('scroll', updateScroll, { passive: true });
-  updateScroll();
-
-  // ---- Resize ------------------------------------------------------------
-  function onResize() {
-    width = sizeEl.clientWidth || window.innerWidth;
-    height = sizeEl.clientHeight || window.innerHeight;
-    renderer.setSize(width, height, false);
-    camera.aspect = width / height;
+    camera.setViewOffset(w, h, 0, h / 2 - centerY, w, h);
     camera.updateProjectionMatrix();
   }
-  window.addEventListener('resize', onResize);
+  layout();
+  if ('ResizeObserver' in window) new ResizeObserver(layout).observe(hero);
+  else addEventListener('resize', layout);
+  document.fonts?.ready.then(layout);
 
-  // ---- Pausa o loop quando o hero sai da tela ----------------------------
-  let visible = true;
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      if (visible && !prefersReduced) loop();
-    }, { threshold: 0 }).observe(sizeEl);
+  // ---- Interação ---------------------------------------------------------
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+  if (fine) {
+    addEventListener('pointermove', e => {
+      pointer.tx = (e.clientX / innerWidth) * 2 - 1;
+      pointer.ty = (e.clientY / innerHeight) * 2 - 1;
+    }, { passive: true });
   }
+  let scrollP = 0;
+  const readScroll = () => {
+    scrollP = Math.min(Math.max(scrollY / (hero.offsetHeight * 0.75), 0), 1);
+  };
+  addEventListener('scroll', readScroll, { passive: true });
+  readScroll();
 
   // ---- Loop --------------------------------------------------------------
   const clock = new THREE.Clock();
-  let running = false;
-  let targetAmp = prefersReduced ? 0.06 : 0.16;
+  let elapsed = 0, intro = reduce ? 1 : 0, smoothScroll = scrollP;
+  const ease = t => 1 - Math.pow(1 - t, 3);
 
-  function render() {
-    const t = clock.getElapsedTime();
-    coreUniforms.uTime.value = t;
-    coreUniforms.uAmp.value += (targetAmp - coreUniforms.uAmp.value) * 0.05;
+  function render(dt) {
+    elapsed += dt;
+    intro = Math.min(intro + dt / 2.2, 1);
+    const e = ease(intro);
 
-    // parallax suave
-    pointer.x += (pointer.tx - pointer.x) * 0.04;
-    pointer.y += (pointer.ty - pointer.y) * 0.04;
+    pointer.x += (pointer.tx - pointer.x) * 0.05;
+    pointer.y += (pointer.ty - pointer.y) * 0.05;
+    smoothScroll += (scrollP - smoothScroll) * 0.12;
+    const s = smoothScroll;
 
-    coreGroup.rotation.y = t * 0.12 + pointer.x * 0.6;
-    coreGroup.rotation.x = pointer.y * 0.4 + scrollFactor * 0.5;
-    const s = 1 - scrollFactor * 0.25;
-    coreGroup.scale.setScalar(s);
+    shared.uTime.value = elapsed;
+    shared.uReveal.value = reduce ? 1.4 : Math.max(0, intro * 1.8 - 0.35) * 1.4;
 
-    particles.rotation.y = t * 0.03 + pointer.x * 0.25;
-    particles.rotation.x = -pointer.y * 0.15;
+    // chip pousa, flutua e gira de leve
+    const float = reduce ? 0 : Math.sin(elapsed * 1.1) * 0.035;
+    chip.position.y = 0.14 + (1 - e) * 1.6 + float;
+    chip.rotation.y = -0.6 * (1 - e) + (reduce ? 0 : Math.sin(elapsed * 0.32) * 0.14) + pointer.x * 0.32 + s * 0.7;
+    chip.rotation.x = pointer.y * 0.1;
+    chip.rotation.z = -pointer.x * 0.05;
 
-    camera.position.x += (pointer.x * 0.6 - camera.position.x) * 0.04;
-    camera.position.y += (-pointer.y * 0.4 - camera.position.y) * 0.04;
-    camera.lookAt(0, 0, 0);
+    // câmera: de 30° para quase vista superior conforme o scroll
+    const el = THREE.MathUtils.lerp(0.52, 1.12, s) - pointer.y * 0.05;
+    const az = pointer.x * 0.12;
+    const dist = baseDist * (1 - 0.14 * s);
+    camera.position.set(
+      Math.sin(az) * dist * Math.cos(el),
+      dist * Math.sin(el),
+      Math.cos(az) * dist * Math.cos(el)
+    );
+    camera.lookAt(0, 0.12, 0);
 
     renderer.render(scene, camera);
   }
 
+  let visible = true, running = false, first = true;
   function loop() {
     if (running) return;
     running = true;
+    clock.getDelta();
     (function frame() {
-      if (!visible || prefersReduced) { running = false; return; }
-      render();
+      if (!visible || document.hidden) { running = false; return; }
+      render(Math.min(clock.getDelta(), 0.05));
+      if (first) { first = false; root.classList.add('webgl-ready'); }
       requestAnimationFrame(frame);
     })();
   }
 
-  if (prefersReduced) {
-    // movimento reduzido: um único frame estático
-    targetAmp = 0.06;
-    coreUniforms.uAmp.value = 0.06;
-    render();
-  } else {
-    loop();
+  if (reduce) {
+    render(0);
+    root.classList.add('webgl-ready');
+    const redraw = () => { layout(); readScroll(); smoothScroll = scrollP; render(0); };
+    addEventListener('resize', redraw);
+    addEventListener('scroll', () => requestAnimationFrame(redraw), { passive: true });
+    return;
   }
-})();
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) loop();
+    }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && visible) loop(); });
+  loop();
+}
+
+/* ---------------------------------------------------------------------------
+   Ambiente de estúdio procedural (softboxes) → reflexos realistas no metal
+--------------------------------------------------------------------------- */
+function studioEnvironment(renderer) {
+  const env = new THREE.Scene();
+  env.add(new THREE.Mesh(
+    new THREE.BoxGeometry(30, 20, 30),
+    new THREE.MeshBasicMaterial({ color: 0x06070a, side: THREE.BackSide })
+  ));
+  const panel = (w, h, color, intensity, pos) => {
+    const m = new THREE.Mesh(
+      new THREE.PlaneGeometry(w, h),
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(intensity), side: THREE.DoubleSide })
+    );
+    m.position.set(...pos);
+    m.lookAt(0, 0, 0);
+    env.add(m);
+  };
+  panel(14, 5, 0xffffff, 4.0, [0, 9, 2]);      // softbox superior
+  panel(5, 10, 0x9cc8ff, 3.0, [-12, 3, 3]);    // lateral fria
+  panel(5, 10, 0xd6b8ff, 2.2, [12, 3, -2]);    // lateral violeta
+  panel(16, 2.5, 0xffffff, 1.6, [0, 2, -13]);  // faixa de fundo
+  panel(8, 2, 0x64d2ff, 1.4, [0, 1, 13]);      // faixa frontal
+
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const texture = pmrem.fromScene(env, 0.03).texture;
+  pmrem.dispose();
+  env.traverse(o => { o.geometry?.dispose(); o.material?.dispose(); });
+  return texture;
+}
+
+/* ---------------------------------------------------------------------------
+   Chip: substrato + contatos dourados + moldura prateada + topo preto + rótulo
+--------------------------------------------------------------------------- */
+function roundedRect(w, h, r) {
+  const s = new THREE.Shape();
+  const x = -w / 2, y = -h / 2;
+  s.moveTo(x + r, y);
+  s.lineTo(x + w - r, y);
+  s.quadraticCurveTo(x + w, y, x + w, y + r);
+  s.lineTo(x + w, y + h - r);
+  s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  s.lineTo(x + r, y + h);
+  s.quadraticCurveTo(x, y + h, x, y + h - r);
+  s.lineTo(x, y + r);
+  s.quadraticCurveTo(x, y, x + r, y);
+  return s;
+}
+
+// placa arredondada deitada no plano XZ, de y=0 até y=height
+function slab(size, radius, height, bevel) {
+  const geo = new THREE.ExtrudeGeometry(roundedRect(size - bevel * 2, size - bevel * 2, Math.max(radius - bevel, 0.001)), {
+    depth: Math.max(height - bevel * 2, 0.001),
+    bevelEnabled: true,
+    bevelThickness: bevel,
+    bevelSize: bevel,
+    bevelSegments: 5,
+    curveSegments: 10
+  });
+  geo.rotateX(-Math.PI / 2);
+  geo.translate(0, bevel, 0);
+  return geo;
+}
+
+function buildChip(maxAniso) {
+  const group = new THREE.Group();
+
+  const SUB = 2.4, SUB_H = 0.09;
+  const substrate = new THREE.Mesh(
+    slab(SUB, 0.16, SUB_H, 0.012),
+    new THREE.MeshPhysicalMaterial({ color: 0x0f1a16, roughness: 0.55, metalness: 0.2, clearcoat: 0.7, clearcoatRoughness: 0.4 })
+  );
+  group.add(substrate);
+
+  // contatos dourados no perímetro
+  const gold = new THREE.MeshStandardMaterial({ color: 0xd9ab52, metalness: 1, roughness: 0.28 });
+  const perSide = 16;
+  const pads = new THREE.InstancedMesh(new THREE.BoxGeometry(0.05, 0.012, 0.11), gold, perSide * 4);
+  const m = new THREE.Matrix4(), q = new THREE.Quaternion(), p = new THREE.Vector3(), sc = new THREE.Vector3(1, 1, 1);
+  let n = 0;
+  for (let side = 0; side < 4; side++) {
+    const angle = side * Math.PI / 2;
+    q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
+    for (let i = 0; i < perSide; i++) {
+      const along = -0.92 + (i / (perSide - 1)) * 1.84;
+      p.set(along, SUB_H + 0.004, 1.07).applyAxisAngle(new THREE.Vector3(0, 1, 0), angle);
+      m.compose(p, q, sc);
+      pads.setMatrixAt(n++, m);
+    }
+  }
+  group.add(pads);
+
+  // marcador do pino 1
+  const marker = new THREE.Mesh(new THREE.CircleGeometry(0.045, 24), gold);
+  marker.rotation.x = -Math.PI / 2;
+  marker.position.set(-1.05, SUB_H + 0.002, -1.05);
+  group.add(marker);
+
+  // moldura prateada
+  const frame = new THREE.Mesh(
+    slab(1.8, 0.15, 0.05, 0.012),
+    new THREE.MeshPhysicalMaterial({ color: 0xdfe1e6, metalness: 1, roughness: 0.16 })
+  );
+  frame.position.y = SUB_H;
+  group.add(frame);
+
+  // topo preto brilhante
+  const TOP_H = 0.11;
+  const top = new THREE.Mesh(
+    slab(1.7, 0.13, TOP_H, 0.03),
+    new THREE.MeshPhysicalMaterial({ color: 0x0c0d10, metalness: 0.6, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.08 })
+  );
+  top.position.y = SUB_H + 0.02;
+  group.add(top);
+
+  // rótulo com as iniciais
+  const label = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.52, 1.52),
+    new THREE.MeshBasicMaterial({
+      map: labelTexture(maxAniso), transparent: true, depthWrite: false, toneMapped: false,
+      polygonOffset: true, polygonOffsetFactor: -2
+    })
+  );
+  label.rotation.x = -Math.PI / 2;
+  label.position.y = SUB_H + 0.02 + TOP_H + 0.002;
+  group.add(label);
+
+  return group;
+}
+
+function labelTexture(maxAniso) {
+  const size = 1024;
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = maxAniso;
+
+  const family = '-apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, "Segoe UI", Roboto, sans-serif';
+  const draw = () => {
+    ctx.clearRect(0, 0, size, size);
+
+    // contorno gravado sutil
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(70, 70, size - 140, size - 140, 70) : ctx.rect(70, 70, size - 140, size - 140);
+    ctx.stroke();
+
+    const g = ctx.createLinearGradient(230, 330, 800, 640);
+    g.addColorStop(0, '#8be8ff');
+    g.addColorStop(0.5, '#5a8cff');
+    g.addColorStop(1, '#c48dff');
+    ctx.fillStyle = g;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `700 290px ${family}`;
+    ctx.fillText('HdS', size / 2, 470);
+
+    ctx.fillStyle = 'rgba(235,240,255,0.62)';
+    ctx.font = `600 54px ${family}`;
+    const word = 'FULL-STACK';
+    const spacing = 20;
+    const widths = [...word].map(ch => ctx.measureText(ch).width);
+    const total = widths.reduce((a, b) => a + b, 0) + spacing * (word.length - 1);
+    let x = size / 2 - total / 2;
+    ctx.textAlign = 'left';
+    [...word].forEach((ch, i) => { ctx.fillText(ch, x, 690); x += widths[i] + spacing; });
+
+    tex.needsUpdate = true;
+  };
+  draw();
+  document.fonts?.ready.then(draw);
+  return tex;
+}
+
+/* ---------------------------------------------------------------------------
+   Trilhas de circuito em leque, com pulsos de luz animados no shader
+--------------------------------------------------------------------------- */
+function buildTraces(count, shared) {
+  const group = new THREE.Group();
+  const palette = [new THREE.Color('#64d2ff'), new THREE.Color('#0a84ff'), new THREE.Color('#7d7aff'), new THREE.Color('#bf5af2')];
+  const perSide = Math.ceil(count / 4);
+  const half = 1.2;
+  const up = new THREE.Vector3(0, 1, 0);
+
+  const vertexShader = /* glsl */`
+    varying vec2 vUv;
+    varying vec3 vWorld;
+    void main(){
+      vUv = uv;
+      vec4 w = modelMatrix * vec4(position, 1.0);
+      vWorld = w.xyz;
+      gl_Position = projectionMatrix * viewMatrix * w;
+    }
+  `;
+  const fragmentShader = /* glsl */`
+    uniform float uTime;
+    uniform float uReveal;
+    uniform float uSeed;
+    uniform float uSpeed;
+    uniform vec3 uColor;
+    varying vec2 vUv;
+    varying vec3 vWorld;
+    void main(){
+      float u = vUv.x;
+      float head = fract(uTime * uSpeed + uSeed) * 1.5 - 0.25;
+      float d = head - u;
+      float pulse = d > 0.0 ? exp(-d * 18.0) : 0.0;
+      float reveal = 1.0 - smoothstep(uReveal - 0.12, uReveal, u);
+      float dist = length(vWorld.xz);
+      float fade = 1.0 - smoothstep(2.4, 7.0, dist);
+      fade *= mix(0.2, 1.0, smoothstep(-3.6, -0.6, vWorld.z));
+      vec3 col = uColor * (0.32 + pulse * 2.6) + vec3(1.0) * pow(pulse, 4.0) * 0.8;
+      gl_FragColor = vec4(col, fade * reveal);
+    }
+  `;
+
+  for (let side = 0; side < 4; side++) {
+    const angle = side * Math.PI / 2;
+    for (let k = 0; k < perSide; k++) {
+      const along = -1 + ((k + 0.5) / perSide) * 2;           // -1..1 ao longo da borda
+      const spread = Math.abs(along);
+      const turn = Math.sign(along) || 1;                    // abre em leque
+      const a = 0.12 + Math.random() * 0.22 + (1 - spread) * 0.25;
+      const b = 0.15 + spread * 1.1 + Math.random() * 0.25;
+      const c = 2.2 + Math.random() * 4.5;
+
+      // monta no lado +Z e gira para os outros lados
+      const p0 = new THREE.Vector3(along * (half - 0.16), 0.004, half);
+      const p1 = p0.clone().add(new THREE.Vector3(0, 0, a));
+      const p2 = p1.clone().add(new THREE.Vector3(turn, 0, 1).normalize().multiplyScalar(b));
+      const p3 = p2.clone().add(new THREE.Vector3(0, 0, c));
+      [p0, p1, p2, p3].forEach(v => v.applyAxisAngle(up, angle));
+
+      const path = new THREE.CurvePath();
+      path.add(new THREE.LineCurve3(p0, p1));
+      path.add(new THREE.LineCurve3(p1, p2));
+      path.add(new THREE.LineCurve3(p2, p3));
+
+      const mesh = new THREE.Mesh(
+        new THREE.TubeGeometry(path, 56, 0.0085, 4, false),
+        new THREE.ShaderMaterial({
+          uniforms: {
+            uTime: shared.uTime,
+            uReveal: shared.uReveal,
+            uSeed: { value: Math.random() },
+            uSpeed: { value: 0.1 + Math.random() * 0.16 },
+            uColor: { value: palette[(side + k) % palette.length] }
+          },
+          vertexShader,
+          fragmentShader,
+          transparent: true,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending
+        })
+      );
+      group.add(mesh);
+    }
+  }
+  return group;
+}
+
+// grade de pontos da "placa", sumindo nas bordas
+function buildBoard() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 64;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = 'rgba(160,190,255,0.55)';
+  ctx.beginPath();
+  ctx.arc(32, 32, 2.2, 0, Math.PI * 2);
+  ctx.fill();
+  const dots = new THREE.CanvasTexture(c);
+  dots.wrapS = dots.wrapT = THREE.RepeatWrapping;
+  dots.repeat.set(70, 70);
+  dots.colorSpace = THREE.SRGBColorSpace;
+
+  // alphaMap lê o canal verde: máscara em tons de cinza opacos
+  const mask = radialTexture([[0, '#ffffff'], [0.35, '#737373'], [0.75, '#000000'], [1, '#000000']]);
+  const board = new THREE.Mesh(
+    new THREE.PlaneGeometry(22, 22),
+    new THREE.MeshBasicMaterial({ map: dots, alphaMap: mask, transparent: true, opacity: 0.38, depthWrite: false, toneMapped: false })
+  );
+  board.rotation.x = -Math.PI / 2;
+  return board;
+}
+
+function radialTexture(stops, size = 256) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  stops.forEach(([o, col]) => g.addColorStop(o, col));
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
