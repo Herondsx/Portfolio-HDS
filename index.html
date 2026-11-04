@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <title>Heron de Souza · Desenvolvedor Full-Stack</title>
     <meta name="description" content="Portfólio de Heron de Souza — desenvolvedor full-stack (Front-End, Desktop e Back-End). Engenharia de software na Comau e projetos freelance sob medida."/>
-    <meta name="theme-color" content="#000000"/>
+    <meta name="theme-color" content="#ffffff"/>
     <meta name="color-scheme" content="light dark"/>
 
     <!-- Open Graph -->
@@ -69,29 +69,53 @@
 </header>
 
 <main>
-    <!-- ============================ HERO 3D ============================ -->
+    <!-- ============================ HERO ============================ -->
     <section class="hero" id="inicio" aria-label="Apresentação">
-        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="dots"></span></div>
 
-        <!-- Fallback em CSS 3D, exibido só se o WebGL não carregar -->
-        <div class="chip-fallback" aria-hidden="true">
-            <div class="cf-board">
-                <div class="cf-sub"><div class="cf-top"><b>HdS</b><small>FULL-STACK</small></div></div>
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <a class="hero-badge" href="#contato"><span class="live-dot"></span>Disponível para projetos freelance<span class="chev" aria-hidden="true">›</span></a>
+                <p class="hero-name">Heron de Souza</p>
+                <h1 class="hero-title">Software de <span class="grad-text">ponta a ponta.</span></h1>
+                <p class="hero-lead">Desenvolvedor full-stack — Front-End, Desktop e Back-End. Engenharia de software na Comau e projetos freelance sob medida.</p>
+                <div class="hero-cta">
+                    <a class="btn btn-primary btn-lg" href="#contato">Falar comigo</a>
+                    <a class="btn-link" href="#projetos">Ver projetos <span aria-hidden="true">›</span></a>
+                </div>
+                <ul class="hero-creds">
+                    <li><span class="logo logo-comau-symbol" role="img" aria-label="Comau"></span><span><small>Hoje</small>Engenharia de Software · Comau</span></li>
+                    <li><span class="logo logo-fei" role="img" aria-label="FEI"></span><span><small>Formação</small>Ciência da Computação · FEI</span></li>
+                </ul>
+            </div>
+
+            <!-- Cartão de contato (estilo Wallet) com leve inclinação 3D -->
+            <div class="pass-wrap">
+                <article class="pass" id="pass" aria-label="Cartão de contato">
+                    <div class="pass-top">
+                        <span class="pass-brand">Heron<span>.</span></span>
+                        <span class="pass-status"><span class="live-dot"></span>Disponível</span>
+                    </div>
+                    <div class="pass-id">
+                        <img class="pass-photo" src="assets/img/heron-480.webp" width="480" height="630" alt="Foto de Heron de Souza" fetchpriority="high"/>
+                        <div><b>Heron de Souza</b><span>Desenvolvedor Full-Stack</span></div>
+                    </div>
+                    <dl class="pass-fields">
+                        <div><dt>Atuação</dt><dd>Front · Desktop · Back</dd></div>
+                        <div><dt>Empresa</dt><dd>Comau</dd></div>
+                        <div><dt>Formação</dt><dd>Ciência da Computação</dd></div>
+                        <div><dt>Stack</dt><dd>React · C# · Node.js</dd></div>
+                    </dl>
+                    <div class="pass-actions">
+                        <a href="https://wa.me/5511930677014?text=Ol%C3%A1%20Heron!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" rel="noreferrer"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+                        <a href="mailto:heron.souza56@gmail.com"><i class="fa-solid fa-envelope"></i><span>E-mail</span></a>
+                        <a href="https://www.linkedin.com/in/heron-de-souza-a0511b323/" target="_blank" rel="noreferrer"><i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span></a>
+                        <a href="https://github.com/Herondsx" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+                    </div>
+                    <span class="pass-sheen" aria-hidden="true"></span>
+                </article>
             </div>
         </div>
-
-        <div class="hero-copy container">
-            <a class="hero-badge" href="#contato"><span class="live-dot"></span>Disponível para projetos freelance<span class="chev" aria-hidden="true">›</span></a>
-            <p class="hero-name">Heron de Souza</p>
-            <h1 class="hero-title">Software de <span class="grad-text">ponta a ponta.</span></h1>
-            <p class="hero-lead">Desenvolvedor full-stack — Front-End, Desktop e Back-End. Engenharia de software na Comau e projetos freelance sob medida.</p>
-            <div class="hero-cta">
-                <a class="btn btn-primary btn-lg" href="#contato">Falar comigo</a>
-                <a class="btn-link btn-link-light" href="#projetos">Ver projetos <span aria-hidden="true">›</span></a>
-            </div>
-        </div>
-
-        <a class="hero-scroll" href="#sobre" aria-label="Rolar para o conteúdo"><span></span></a>
     </section>
 
     <!-- ============================ DESTAQUES ============================ -->
@@ -146,7 +170,7 @@
 
                 <article class="tile tile-now reveal">
                     <div class="tile-row">
-                        <span class="logo-tile logo-wide"><img src="assets/img/comau.webp" width="320" height="50" alt="Comau" loading="lazy" decoding="async"/></span>
+                        <span class="logo logo-comau" role="img" aria-label="Comau"></span>
                         <span class="status"><span class="live-dot"></span>Atual</span>
                     </div>
                     <p class="tile-kicker">Atualmente</p>
@@ -156,7 +180,7 @@
 
                 <article class="tile tile-edu reveal">
                     <div class="tile-row">
-                        <a class="logo-tile logo-wide" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer" aria-label="Site da FEI"><img src="assets/img/fei.webp" width="320" height="187" alt="FEI" loading="lazy" decoding="async"/></a>
+                        <a class="logo-link" href="https://portal.fei.edu.br/" target="_blank" rel="noreferrer" aria-label="Site da FEI"><span class="logo logo-fei" role="img" aria-label="FEI"></span></a>
                     </div>
                     <p class="tile-kicker">Formação</p>
                     <h3 class="tile-h">Ciência da Computação</h3>
@@ -206,7 +230,7 @@
 
                 <article class="tile tile-lang reveal">
                     <div class="tile-row">
-                        <span class="logo-tile logo-wide"><img src="assets/img/efset.webp" width="320" height="75" alt="EF SET" loading="lazy" decoding="async"/></span>
+                        <span class="logo logo-efset" role="img" aria-label="EF SET"></span>
                     </div>
                     <p class="tile-kicker">Idiomas</p>
                     <h3 class="tile-h">Inglês fluente</h3>
@@ -216,7 +240,7 @@
 
                 <article class="tile tile-course reveal">
                     <div class="tile-row">
-                        <span class="logo-tile"><img src="assets/img/bradesco.webp" width="174" height="192" alt="Fundação Bradesco" loading="lazy" decoding="async"/></span>
+                        <img class="logo-img" src="assets/img/bradesco.webp" width="174" height="192" alt="Fundação Bradesco" loading="lazy" decoding="async"/>
                     </div>
                     <p class="tile-kicker">Cursos livres</p>
                     <h3 class="tile-h">TI, Lógica e Gestão</h3>
@@ -238,7 +262,7 @@
             <article class="xp reveal">
                 <div class="xp-main">
                     <div class="xp-head">
-                        <span class="logo-tile logo-wide logo-lg"><img src="assets/img/comau.webp" width="320" height="50" alt="Comau" loading="lazy" decoding="async"/></span>
+                        <span class="logo logo-comau" role="img" aria-label="Comau"></span>
                         <span class="status"><span class="live-dot"></span>abr 2025 — presente</span>
                     </div>
                     <h3 class="xp-role">Estagiário de Desenvolvimento de Software</h3>
@@ -337,7 +361,7 @@
             <header class="section-head reveal">
                 <p class="eyebrow">Projetos</p>
                 <h2 class="title">Projetos em destaque.</h2>
-                <p class="lead">Sistemas reais, da gestão de engenharia à análise de código de robôs industriais.</p>
+                <p class="lead">Sistemas reais, da gestão de engenharia à análise de código de robôs industriais. Toque em um card para expandir.</p>
             </header>
 
             <div class="rail" id="projectRail" data-stagger>
@@ -361,7 +385,7 @@
                         </div>
                     </div>
                     <div class="project-body">
-                        <p class="project-meta">Comau · Web App</p>
+                        <p class="project-meta"><span class="logo logo-comau-symbol" aria-hidden="true"></span>Comau · Web App</p>
                         <h3>Plataforma de Gestão de Projeto Mecânico</h3>
                         <p>Gestão de projetos de engenharia mecânica com milestones e rastreamento de dispositivos em tempo real.</p>
                         <div class="tags"><span>React</span><span>Node.js</span><span>PostgreSQL</span></div>
@@ -398,7 +422,7 @@
                         </div>
                     </div>
                     <div class="project-body">
-                        <p class="project-meta">Comau · Desktop</p>
+                        <p class="project-meta"><span class="logo logo-comau-symbol" aria-hidden="true"></span>Comau · Desktop</p>
                         <h3>WeldScanner</h3>
                         <p>Análise e desconstrução completa de backups de código de robôs industriais.</p>
                         <div class="tags"><span>WPF</span><span>C#</span><span>.NET</span></div>
@@ -418,7 +442,7 @@
                         </div>
                     </div>
                     <div class="project-body">
-                        <p class="project-meta">FEI · Acadêmico</p>
+                        <p class="project-meta"><span class="logo logo-fei" aria-hidden="true"></span>FEI · Acadêmico</p>
                         <h3>Hapti Chat</h3>
                         <p>Ensino de código Morse com feedback visual e háptico, direto no navegador.</p>
                         <div class="tags"><span>React</span><span>Acessibilidade</span></div>
@@ -446,37 +470,37 @@
                 <article class="lib-group reveal">
                     <h3>Web &amp; Front-End</h3>
                     <ul class="apps">
-                        <li><span class="app"><img src="assets/img/html.webp" width="139" height="192" alt="" loading="lazy" decoding="async"/></span>HTML5</li>
-                        <li><span class="app"><img src="assets/img/css.webp" width="141" height="192" alt="" loading="lazy" decoding="async"/></span>CSS3</li>
-                        <li><span class="app"><img src="assets/img/js.webp" width="192" height="183" alt="" loading="lazy" decoding="async"/></span>JavaScript</li>
-                        <li><span class="app"><img src="assets/img/react.webp" width="192" height="174" alt="" loading="lazy" decoding="async"/></span>React</li>
+                        <li><span class="app"><img src="assets/logos/html5.svg" width="128" height="128" alt="" loading="lazy"/></span>HTML5</li>
+                        <li><span class="app"><img src="assets/logos/css3.svg" width="128" height="128" alt="" loading="lazy"/></span>CSS3</li>
+                        <li><span class="app"><img src="assets/logos/javascript.svg" width="128" height="128" alt="" loading="lazy"/></span>JavaScript</li>
+                        <li><span class="app"><img src="assets/logos/react.svg" width="128" height="128" alt="" loading="lazy"/></span>React</li>
                     </ul>
                 </article>
                 <article class="lib-group reveal">
                     <h3>Back-End &amp; Dados</h3>
                     <ul class="apps">
-                        <li><span class="app app-glyph g-node"><i class="fa-brands fa-node-js"></i></span>Node.js</li>
-                        <li><span class="app app-glyph g-pg"><i class="fa-solid fa-database"></i></span>PostgreSQL</li>
-                        <li><span class="app"><img src="assets/img/python.webp" width="192" height="187" alt="" loading="lazy" decoding="async"/></span>Python</li>
-                        <li><span class="app app-glyph g-git"><i class="fa-brands fa-git-alt"></i></span>Git</li>
+                        <li><span class="app"><img src="assets/logos/nodejs.svg" width="128" height="128" alt="" loading="lazy"/></span>Node.js</li>
+                        <li><span class="app"><img src="assets/logos/postgresql.svg" width="128" height="128" alt="" loading="lazy"/></span>PostgreSQL</li>
+                        <li><span class="app"><img src="assets/logos/python.svg" width="128" height="128" alt="" loading="lazy"/></span>Python</li>
+                        <li><span class="app"><img src="assets/logos/git.svg" width="128" height="128" alt="" loading="lazy"/></span>Git</li>
                     </ul>
                 </article>
                 <article class="lib-group reveal">
                     <h3>Desktop &amp; Linguagens</h3>
                     <ul class="apps">
-                        <li><span class="app"><img src="assets/img/csharp.webp" width="174" height="192" alt="" loading="lazy" decoding="async"/></span>C#</li>
-                        <li><span class="app app-glyph g-net"><b>.NET</b></span>.NET</li>
-                        <li><span class="app"><img src="assets/img/wpf.webp" width="170" height="192" alt="" loading="lazy" decoding="async"/></span>WPF</li>
-                        <li><span class="app"><img src="assets/img/java.webp" width="141" height="192" alt="" loading="lazy" decoding="async"/></span>Java</li>
-                        <li><span class="app"><img src="assets/img/c.webp" width="171" height="192" alt="" loading="lazy" decoding="async"/></span>C</li>
+                        <li><span class="app"><img src="assets/logos/csharp.svg" width="128" height="128" alt="" loading="lazy"/></span>C#</li>
+                        <li><span class="app"><img src="assets/logos/dotnet.svg" width="128" height="128" alt="" loading="lazy"/></span>.NET</li>
+                        <li><span class="app"><img src="assets/img/wpf.webp" width="170" height="192" alt="" loading="lazy"/></span>WPF</li>
+                        <li><span class="app"><img src="assets/logos/java.svg" width="128" height="128" alt="" loading="lazy"/></span>Java</li>
+                        <li><span class="app"><img src="assets/img/c.webp" width="171" height="192" alt="" loading="lazy"/></span>C</li>
                     </ul>
                 </article>
                 <article class="lib-group reveal">
                     <h3>Indústria 4.0</h3>
                     <ul class="apps">
-                        <li><span class="app"><img src="assets/img/process.webp" width="192" height="190" alt="" loading="lazy" decoding="async"/></span>Process Simulate</li>
-                        <li><span class="app app-glyph g-robot"><i class="fa-solid fa-robot"></i></span>Robótica</li>
-                        <li><span class="app app-glyph g-dm"><i class="fa-solid fa-industry"></i></span>Digital Mfg.</li>
+                        <li><span class="app"><img src="assets/img/process.webp" width="192" height="190" alt="" loading="lazy"/></span>Process Simulate</li>
+                        <li><span class="app app-icon" style="--c:#ff9f0a"><i class="fa-solid fa-robot"></i></span>Robótica</li>
+                        <li><span class="app app-icon" style="--c:#0a84ff"><i class="fa-solid fa-industry"></i></span>Digital Mfg.</li>
                     </ul>
                 </article>
             </div>
@@ -527,33 +551,195 @@
                 <li class="reveal"><span class="step-n">4</span><b>Entrega</b><span>Sistema testado, publicado e pronto para uso.</span></li>
             </ol>
 
-            <!-- Demo ao vivo -->
+            <!-- Do código ao produto: vitrine ilustrada -->
             <div class="demo-head reveal">
-                <h3 class="subtitle">Veja o código virar produto.</h3>
-                <p>Do editor ao sistema rodando — web, desktop e API.</p>
+                <h3 class="subtitle">Do código ao produto.</h3>
+                <p>Cada camada que eu entrego — da tela ao servidor.</p>
             </div>
-            <div class="showcase" id="showcase" data-depth>
-                <div class="window">
-                    <div class="window-bar">
-                        <span class="dots"><i></i><i></i><i></i></span>
-                        <div class="tabs" id="scTabs">
-                            <button class="tab active" type="button">Dashboard.jsx</button>
-                            <button class="tab" type="button">DesktopApp.cs</button>
-                            <button class="tab" type="button">server.js</button>
+
+            <div class="studio reveal" id="studio">
+                <div class="segmented" role="tablist" aria-label="Tipos de entrega">
+                    <span class="seg-pill" aria-hidden="true"></span>
+                    <button type="button" role="tab" id="tab-web" aria-controls="sc-web" aria-selected="true">Web</button>
+                    <button type="button" role="tab" id="tab-desk" aria-controls="sc-desk" aria-selected="false" tabindex="-1">Desktop</button>
+                    <button type="button" role="tab" id="tab-api" aria-controls="sc-api" aria-selected="false" tabindex="-1">APIs</button>
+                    <button type="button" role="tab" id="tab-auto" aria-controls="sc-auto" aria-selected="false" tabindex="-1">Automação</button>
+                </div>
+
+                <div class="stage" id="stage">
+                    <!-- WEB: notebook + iPhone -->
+                    <div class="scene is-active play" id="sc-web" role="tabpanel" aria-labelledby="tab-web">
+                        <div class="scene-art art-web" aria-hidden="true">
+                            <div class="laptop">
+                                <div class="lp-screen">
+                                    <div class="lp-display"><div class="ui ui-web">
+                                        <aside class="uw-side"><i class="uw-logo"></i><i class="on"></i><i></i><i></i><i></i></aside>
+                                        <div class="uw-main">
+                                            <div class="uw-top"><b>Visão geral</b><span class="uw-search"><i class="fa-solid fa-magnifying-glass"></i> Buscar</span><span class="uw-av"></span></div>
+                                            <div class="uw-kpis">
+                                                <div><small>Projetos ativos</small><b>24</b><em>+3</em></div>
+                                                <div><small>Dispositivos</small><b>1.280</b><em>+12%</em></div>
+                                                <div><small>Entregas no prazo</small><b>96%</b><em>+4%</em></div>
+                                            </div>
+                                            <div class="uw-chart">
+                                                <div class="uw-chart-h"><b>Progresso semanal</b><span><i></i>Concluído <i class="b"></i>Previsto</span></div>
+                                                <svg viewBox="0 0 300 74">
+                                                    <defs><linearGradient id="uwArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a84ff" stop-opacity=".28"/><stop offset="1" stop-color="#0a84ff" stop-opacity="0"/></linearGradient></defs>
+                                                    <path class="uw-plan" d="M0,62 L50,54 L100,50 L150,40 L200,34 L250,26 L300,18"/>
+                                                    <path class="uw-area" d="M0,66 L50,58 L100,60 L150,42 L200,46 L250,28 L300,20 L300,80 L0,80 Z"/>
+                                                    <path class="uw-line" pathLength="1" d="M0,66 L50,58 L100,60 L150,42 L200,46 L250,28 L300,20"/>
+                                                </svg>
+                                            </div>
+                                            <div class="uw-rows">
+                                                <div style="--d:1"><span class="uw-dot g"></span>Linha de solda A<span class="uw-bar"><i style="--w:86%"></i></span><em class="pill g">aprovado</em></div>
+                                                <div style="--d:2"><span class="uw-dot y"></span>Célula robótica 12<span class="uw-bar"><i style="--w:54%"></i></span><em class="pill y">em revisão</em></div>
+                                                <div style="--d:3"><span class="uw-dot b"></span>Dispositivo DSP-1043<span class="uw-bar"><i style="--w:32%"></i></span><em class="pill b">em andamento</em></div>
+                                            </div>
+                                        </div>
+                                    </div></div>
+                                </div>
+                                <div class="lp-base"></div>
+                            </div>
+                            <div class="iphone">
+                                <div class="ip-display"><div class="ui ui-mob">
+                                    <span class="ip-island"></span>
+                                    <div class="um-head"><small>Olá, equipe</small><b>Visão geral</b></div>
+                                    <div class="um-card"><span class="um-ring"><i>96%</i></span><div><b>No prazo</b><small>24 projetos</small></div></div>
+                                    <div class="um-list">
+                                        <div style="--d:1"><span class="uw-dot g"></span>Linha A<em class="pill g">ok</em></div>
+                                        <div style="--d:2"><span class="uw-dot y"></span>Célula 12<em class="pill y">revisão</em></div>
+                                        <div style="--d:3"><span class="uw-dot b"></span>DSP-1043<em class="pill b">ativo</em></div>
+                                    </div>
+                                    <div class="um-tabs"><i class="on"></i><i></i><i></i><i></i></div>
+                                </div></div>
+                            </div>
                         </div>
-                        <span class="win-lang" id="scLang">React</span>
-                    </div>
-                    <div class="window-body">
-                        <div class="editor">
-                            <div class="gutter" id="scGutter"></div>
-                            <div class="code" id="scCode"></div>
+                        <div class="scene-copy">
+                            <h4>Aplicações web</h4>
+                            <p>Dashboards, sistemas internos e landing pages responsivas — a mesma aplicação, do notebook ao celular.</p>
+                            <div class="tags"><span>React</span><span>JavaScript</span><span>Responsivo</span></div>
                         </div>
-                        <div class="preview" id="scPreview"></div>
                     </div>
-                    <div class="window-status">
-                        <span><i class="fa-solid fa-code-branch"></i> main</span>
-                        <span class="st-build" id="scBuild"><i class="fa-regular fa-circle"></i> compilando…</span>
-                        <span class="st-pos" id="scPos">Ln 1, Col 1</span>
+
+                    <!-- DESKTOP: monitor + app WPF -->
+                    <div class="scene" id="sc-desk" role="tabpanel" aria-labelledby="tab-desk" hidden>
+                        <div class="scene-art art-desk" aria-hidden="true">
+                            <div class="monitor">
+                                <div class="mn-screen">
+                                    <div class="mn-display"><div class="ui ui-desk">
+                                        <div class="ud-title"><span class="ud-ico">▦</span>Gestão de Dispositivos<span class="ud-win"><i>—</i><i>▢</i><i>✕</i></span></div>
+                                        <div class="ud-cmd">
+                                            <span><i class="fa-solid fa-file-import"></i> Importar</span>
+                                            <span><i class="fa-solid fa-list-check"></i> Validar</span>
+                                            <span><i class="fa-solid fa-file-export"></i> Exportar CSV</span>
+                                            <span class="ud-search"><i class="fa-solid fa-magnifying-glass"></i> Filtrar dispositivos…</span>
+                                        </div>
+                                        <div class="ud-body">
+                                            <aside class="ud-nav">
+                                                <small>Projetos</small>
+                                                <span class="on"><i class="fa-solid fa-folder-open"></i> Linha A</span>
+                                                <span><i class="fa-solid fa-folder"></i> Linha B</span>
+                                                <span><i class="fa-solid fa-folder"></i> Célula 12</span>
+                                                <small>Relatórios</small>
+                                                <span><i class="fa-solid fa-chart-pie"></i> Status</span>
+                                            </aside>
+                                            <div class="ud-grid">
+                                                <div class="ud-h"><span>ID</span><span>Dispositivo</span><span>Status</span><span>Progresso</span></div>
+                                                <div class="ud-r" style="--d:1"><span>1041</span><span>Garra pneumática</span><em class="pill g">aprovado</em><span class="uw-bar"><i style="--w:100%"></i></span></div>
+                                                <div class="ud-r sel" style="--d:2"><span>1042</span><span>Mesa giratória</span><em class="pill y">em revisão</em><span class="uw-bar"><i style="--w:68%"></i></span></div>
+                                                <div class="ud-r" style="--d:3"><span>1043</span><span>Fixture de solda</span><em class="pill b">em andamento</em><span class="uw-bar"><i style="--w:42%"></i></span></div>
+                                                <div class="ud-r" style="--d:4"><span>1044</span><span>Esteira lateral</span><em class="pill g">aprovado</em><span class="uw-bar"><i style="--w:100%"></i></span></div>
+                                                <div class="ud-r" style="--d:5"><span>1045</span><span>Pinça de solda</span><em class="pill r">pendente</em><span class="uw-bar"><i style="--w:12%"></i></span></div>
+                                            </div>
+                                            <aside class="ud-detail">
+                                                <small>Selecionado</small>
+                                                <b>Mesa giratória</b>
+                                                <span class="ud-donut"><i>68%</i></span>
+                                                <dl><dt>Responsável</dt><dd>Engenharia</dd><dt>Revisão</dt><dd>v3</dd></dl>
+                                            </aside>
+                                        </div>
+                                        <div class="ud-status"><span>128 registros</span><span><i class="fa-solid fa-circle-check"></i> Sincronizado</span></div>
+                                    </div></div>
+                                </div>
+                                <div class="mn-neck"></div>
+                                <div class="mn-foot"></div>
+                            </div>
+                        </div>
+                        <div class="scene-copy">
+                            <h4>Software desktop</h4>
+                            <p>Aplicações Windows robustas em WPF e .NET, feitas para o dia a dia de engenharia e operação.</p>
+                            <div class="tags"><span>WPF</span><span>C#</span><span>.NET</span></div>
+                        </div>
+                    </div>
+
+                    <!-- APIs: arquitetura de integração -->
+                    <div class="scene" id="sc-api" role="tabpanel" aria-labelledby="tab-api" hidden>
+                        <div class="scene-art art-api" aria-hidden="true">
+                            <div class="api-grid">
+                                <div class="api-col">
+                                    <div class="node"><span class="node-ico" style="--c:#0a84ff"><i class="fa-solid fa-window-maximize"></i></span><span>Web App</span></div>
+                                    <div class="node"><span class="node-ico" style="--c:#bf5af2"><i class="fa-solid fa-display"></i></span><span>App Desktop</span></div>
+                                    <div class="node"><span class="node-ico" style="--c:#30d158"><i class="fa-solid fa-file-excel"></i></span><span>Relatórios</span></div>
+                                </div>
+                                <div class="api-link">
+                                    <svg class="lk-h" viewBox="0 0 100 300" preserveAspectRatio="none"><path d="M0,50 C55,50 45,150 100,150"/><path d="M0,150 L100,150"/><path d="M0,250 C55,250 45,150 100,150"/></svg>
+                                    <svg class="lk-v" viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M50,0 C50,55 150,45 150,100"/><path d="M150,0 L150,100"/><path d="M250,0 C250,55 150,45 150,100"/></svg>
+                                </div>
+                                <div class="api-core">
+                                    <div class="core-head"><span class="core-ico"><i class="fa-solid fa-server"></i></span><div><b>API REST</b><small>Node.js</small></div><span class="live"><i></i>online</span></div>
+                                    <ul class="core-log">
+                                        <li style="--d:1"><b class="m get">GET</b><span>/api/dispositivos</span><em>200</em></li>
+                                        <li style="--d:2"><b class="m post">POST</b><span>/api/milestones</span><em>201</em></li>
+                                        <li style="--d:3"><b class="m put">PUT</b><span>/api/status/1042</span><em>200</em></li>
+                                        <li style="--d:4"><b class="m get">GET</b><span>/api/relatorios</span><em>200</em></li>
+                                    </ul>
+                                </div>
+                                <div class="api-link">
+                                    <svg class="lk-h" viewBox="0 0 100 300" preserveAspectRatio="none"><path d="M0,150 C55,150 45,50 100,50"/><path d="M0,150 L100,150"/><path d="M0,150 C55,150 45,250 100,250"/></svg>
+                                    <svg class="lk-v" viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M150,0 C150,55 50,45 50,100"/><path d="M150,0 L150,100"/><path d="M150,0 C150,55 250,45 250,100"/></svg>
+                                </div>
+                                <div class="api-col">
+                                    <div class="node"><span class="node-ico" style="--c:#5e5ce6"><i class="fa-solid fa-database"></i></span><span>PostgreSQL</span></div>
+                                    <div class="node"><span class="node-ico" style="--c:#ff9f0a"><i class="fa-solid fa-industry"></i></span><span>Process Simulate</span></div>
+                                    <div class="node"><span class="node-ico" style="--c:#64d2ff"><i class="fa-solid fa-network-wired"></i></span><span>Sistemas internos</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scene-copy">
+                            <h4>APIs e integrações</h4>
+                            <p>APIs REST que conectam interfaces, bancos de dados e ferramentas industriais em um só fluxo.</p>
+                            <div class="tags"><span>Node.js</span><span>PostgreSQL</span><span>REST</span></div>
+                        </div>
+                    </div>
+
+                    <!-- AUTOMAÇÃO: pipeline de dados -->
+                    <div class="scene" id="sc-auto" role="tabpanel" aria-labelledby="tab-auto" hidden>
+                        <div class="scene-art art-auto" aria-hidden="true">
+                            <ol class="pipe">
+                                <li style="--d:0"><span class="node-ico" style="--c:#ff9f0a"><i class="fa-solid fa-robot"></i></span><b>Backup do robô</b><small>programas e pontos</small></li>
+                                <li style="--d:1"><span class="node-ico" style="--c:#0a84ff"><i class="fa-solid fa-code"></i></span><b>Parsing</b><small>trajetórias e parâmetros</small></li>
+                                <li style="--d:2"><span class="node-ico" style="--c:#bf5af2"><i class="fa-solid fa-shield-halved"></i></span><b>Validação</b><small>integridade dos dados</small></li>
+                                <li style="--d:3"><span class="node-ico" style="--c:#30d158"><i class="fa-solid fa-table"></i></span><b>Relatório</b><small>CSV · Excel</small></li>
+                            </ol>
+                            <div class="auto-out">
+                                <div class="ao-head"><i class="fa-solid fa-file-excel"></i><b>relatorio_pontos.xlsx</b><span class="ok"><i class="fa-solid fa-circle-check"></i> pronto</span></div>
+                                <div class="ao-body">
+                                    <div class="ao-table">
+                                        <div class="ao-h"><span>Ponto</span><span>Tipo</span><span>Status</span></div>
+                                        <div style="--d:1"><span>P001</span><span>Solda</span><em class="pill g">ok</em></div>
+                                        <div style="--d:2"><span>P002</span><span>Solda</span><em class="pill g">ok</em></div>
+                                        <div style="--d:3"><span>P003</span><span>Trajetória</span><em class="pill y">revisar</em></div>
+                                        <div style="--d:4"><span>P004</span><span>Solda</span><em class="pill g">ok</em></div>
+                                    </div>
+                                    <div class="ao-chart"><i style="--h:72%"></i><i style="--h:48%"></i><i style="--h:90%"></i><i style="--h:60%"></i><i style="--h:80%"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scene-copy">
+                            <h4>Automação e dados</h4>
+                            <p>Scripts que extraem, validam e organizam dados — de backups de robôs a relatórios prontos para análise.</p>
+                            <div class="tags"><span>Python</span><span>Process Simulate</span><span>ETL</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -621,72 +807,81 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; <span id="year">2026</span> Heron de Souza. Todos os direitos reservados.</p>
-            <p>Feito com HTML, CSS, JavaScript e Three.js.</p>
+            <p>Feito com HTML, CSS e JavaScript.</p>
         </div>
     </div>
 </footer>
 
-<!-- ============================ DETALHES DOS PROJETOS ============================ -->
-<dialog class="sheet" id="proj-gestao" aria-labelledby="proj-gestao-t">
-    <div class="sheet-inner">
-        <button class="icon-btn sheet-close" type="button" data-close aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
-        <p class="sheet-meta">Comau · Web App</p>
-        <h3 class="sheet-title" id="proj-gestao-t">Plataforma de Gestão de Projeto Mecânico</h3>
-        <p class="sheet-lead">Sistema completo para gerenciamento de projetos de engenharia mecânica, controle de milestones e rastreamento de dispositivos em tempo real.</p>
-        <h4>Funcionalidades principais</h4>
-        <ul class="checks">
-            <li>Gerenciamento detalhado de <strong>milestones</strong> e cronogramas de projeto.</li>
-            <li>Cadastro e controle granular de <strong>dispositivos mecânicos</strong> com informações técnicas.</li>
-            <li>Sistema de <strong>controle de status</strong> a nível de dispositivo (aprovado, em revisão, pendente, etc.).</li>
-            <li>Dashboard interativo com <strong>métricas em tempo real</strong> e visualização de progresso.</li>
-            <li>Sistema de notificações e alertas para prazos e mudanças de status.</li>
-            <li>Geração de relatórios customizados e exportação de dados.</li>
-            <li>Controle de versões e histórico de alterações de cada dispositivo.</li>
-        </ul>
-        <h4>Stack tecnológica</h4>
-        <div class="tags tags-lg"><span>React + Vite</span><span>Node.js</span><span>PostgreSQL</span><span>REST APIs</span></div>
+<!-- ============================ DETALHES DOS PROJETOS (expansão estilo App Store) ============================ -->
+<dialog class="ex" id="proj-gestao" aria-labelledby="proj-gestao-t">
+    <div class="ex-scroll">
+        <div class="ex-art" data-art></div>
+        <div class="ex-body">
+            <p class="ex-meta"><span class="logo logo-comau-symbol" aria-hidden="true"></span>Comau · Web App</p>
+            <h3 class="ex-title" id="proj-gestao-t">Plataforma de Gestão de Projeto Mecânico</h3>
+            <p class="ex-lead">Sistema completo para gerenciamento de projetos de engenharia mecânica, controle de milestones e rastreamento de dispositivos em tempo real.</p>
+            <h4>Funcionalidades principais</h4>
+            <ul class="checks">
+                <li>Gerenciamento detalhado de <strong>milestones</strong> e cronogramas de projeto.</li>
+                <li>Cadastro e controle granular de <strong>dispositivos mecânicos</strong> com informações técnicas.</li>
+                <li>Sistema de <strong>controle de status</strong> a nível de dispositivo (aprovado, em revisão, pendente, etc.).</li>
+                <li>Dashboard interativo com <strong>métricas em tempo real</strong> e visualização de progresso.</li>
+                <li>Sistema de notificações e alertas para prazos e mudanças de status.</li>
+                <li>Geração de relatórios customizados e exportação de dados.</li>
+                <li>Controle de versões e histórico de alterações de cada dispositivo.</li>
+            </ul>
+            <h4>Stack tecnológica</h4>
+            <div class="tags tags-lg"><span>React + Vite</span><span>Node.js</span><span>PostgreSQL</span><span>REST APIs</span></div>
+        </div>
     </div>
+    <button class="ex-close" type="button" data-close aria-label="Fechar" autofocus><i class="fa-solid fa-xmark"></i></button>
 </dialog>
 
-<dialog class="sheet" id="proj-weld" aria-labelledby="proj-weld-t">
-    <div class="sheet-inner">
-        <button class="icon-btn sheet-close" type="button" data-close aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
-        <p class="sheet-meta">Comau · Desktop</p>
-        <h3 class="sheet-title" id="proj-weld-t">WeldScanner</h3>
-        <p class="sheet-lead">Ferramenta desktop de análise e desconstrução completa de backups de códigos de robôs industriais.</p>
-        <h4>Funcionalidades principais</h4>
-        <ul class="checks">
-            <li><strong>Parsing inteligente</strong> de backups de código de robôs (múltiplos formatos).</li>
-            <li>Extração e <strong>desconstrução completa</strong> de pontos de solda, trajetórias e parâmetros.</li>
-            <li>Visualização estruturada de dados com interface intuitiva em <strong>WPF</strong>.</li>
-            <li>Validação automática de integridade e detecção de inconsistências.</li>
-            <li>Exportação para <strong>CSV/Excel</strong> e integração com sistemas internos.</li>
-            <li>Sistema de busca avançada e filtros customizáveis.</li>
-        </ul>
-        <h4>Stack tecnológica</h4>
-        <div class="tags tags-lg"><span>WPF</span><span>C#</span><span>XAML</span><span>.NET Framework</span><span>Visual Studio 2022</span></div>
-        <a href="https://github.com/Herondsx/App_Repository_Heronds" target="_blank" rel="noreferrer" class="btn btn-primary sheet-btn"><i class="fa-brands fa-github"></i> Ver no GitHub</a>
+<dialog class="ex" id="proj-weld" aria-labelledby="proj-weld-t">
+    <div class="ex-scroll">
+        <div class="ex-art" data-art></div>
+        <div class="ex-body">
+            <p class="ex-meta"><span class="logo logo-comau-symbol" aria-hidden="true"></span>Comau · Desktop</p>
+            <h3 class="ex-title" id="proj-weld-t">WeldScanner</h3>
+            <p class="ex-lead">Ferramenta desktop de análise e desconstrução completa de backups de códigos de robôs industriais.</p>
+            <h4>Funcionalidades principais</h4>
+            <ul class="checks">
+                <li><strong>Parsing inteligente</strong> de backups de código de robôs (múltiplos formatos).</li>
+                <li>Extração e <strong>desconstrução completa</strong> de pontos de solda, trajetórias e parâmetros.</li>
+                <li>Visualização estruturada de dados com interface intuitiva em <strong>WPF</strong>.</li>
+                <li>Validação automática de integridade e detecção de inconsistências.</li>
+                <li>Exportação para <strong>CSV/Excel</strong> e integração com sistemas internos.</li>
+                <li>Sistema de busca avançada e filtros customizáveis.</li>
+            </ul>
+            <h4>Stack tecnológica</h4>
+            <div class="tags tags-lg"><span>WPF</span><span>C#</span><span>XAML</span><span>.NET Framework</span><span>Visual Studio 2022</span></div>
+            <a href="https://github.com/Herondsx/App_Repository_Heronds" target="_blank" rel="noreferrer" class="btn btn-primary ex-btn"><i class="fa-brands fa-github"></i> Ver no GitHub</a>
+        </div>
     </div>
+    <button class="ex-close" type="button" data-close aria-label="Fechar" autofocus><i class="fa-solid fa-xmark"></i></button>
 </dialog>
 
-<dialog class="sheet" id="proj-hapti" aria-labelledby="proj-hapti-t">
-    <div class="sheet-inner">
-        <button class="icon-btn sheet-close" type="button" data-close aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
-        <p class="sheet-meta">FEI · Projeto acadêmico</p>
-        <h3 class="sheet-title" id="proj-hapti-t">Hapti Chat</h3>
-        <p class="sheet-lead">Aplicação web interativa para ensino de código Morse através de feedback visual e háptico.</p>
-        <h4>Funcionalidades principais</h4>
-        <ul class="checks">
-            <li>Interface interativa para <strong>aprendizado de código Morse</strong> de forma intuitiva.</li>
-            <li>Sistema de tradução em tempo real (texto ↔ Morse).</li>
-            <li>Feedback visual com animações e indicadores de progresso.</li>
-            <li>Exercícios práticos e testes de conhecimento.</li>
-            <li>Design responsivo e acessível para uso em diversos dispositivos.</li>
-            <li>Sistema de conquistas e acompanhamento de progresso do usuário.</li>
-        </ul>
-        <h4>Stack tecnológica</h4>
-        <div class="tags tags-lg"><span>React</span><span>Projeto acadêmico · FEI</span></div>
+<dialog class="ex" id="proj-hapti" aria-labelledby="proj-hapti-t">
+    <div class="ex-scroll">
+        <div class="ex-art" data-art></div>
+        <div class="ex-body">
+            <p class="ex-meta"><span class="logo logo-fei" aria-hidden="true"></span>FEI · Projeto acadêmico</p>
+            <h3 class="ex-title" id="proj-hapti-t">Hapti Chat</h3>
+            <p class="ex-lead">Aplicação web interativa para ensino de código Morse através de feedback visual e háptico.</p>
+            <h4>Funcionalidades principais</h4>
+            <ul class="checks">
+                <li>Interface interativa para <strong>aprendizado de código Morse</strong> de forma intuitiva.</li>
+                <li>Sistema de tradução em tempo real (texto ↔ Morse).</li>
+                <li>Feedback visual com animações e indicadores de progresso.</li>
+                <li>Exercícios práticos e testes de conhecimento.</li>
+                <li>Design responsivo e acessível para uso em diversos dispositivos.</li>
+                <li>Sistema de conquistas e acompanhamento de progresso do usuário.</li>
+            </ul>
+            <h4>Stack tecnológica</h4>
+            <div class="tags tags-lg"><span>React</span><span>Projeto acadêmico · FEI</span></div>
+        </div>
     </div>
+    <button class="ex-close" type="button" data-close aria-label="Fechar" autofocus><i class="fa-solid fa-xmark"></i></button>
 </dialog>
 
 <!-- ============================ FLUTUANTES ============================ -->
@@ -696,8 +891,6 @@
     <i class="fa-brands fa-whatsapp"></i>
 </a>
 
-<script type="module" src="three-scene.js"></script>
 <script src="script.js" defer></script>
-<script src="showcase.js" defer></script>
 </body>
 </html>
